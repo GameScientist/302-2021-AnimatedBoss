@@ -3334,8 +3334,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7525103195752203514}
   - component: {fileID: 8062622015913659780}
+  - component: {fileID: -8083218393116370511}
   m_Layer: 0
-  m_Name: guardian
+  m_Name: guardianRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3401,6 +3402,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8083218393116370511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144215134759018048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff3d23a1a3b2a743bd129d0f1222d1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animMachine: {fileID: 0}
 --- !u!1 &7230391603402950507
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class GuardianMovement : MonoBehaviour
     {
         float speed = Input.GetAxisRaw("Vertical");
 
-        animMachine.SetFloat("current speed", speed);
+        animMachine.SetFloat("Current Speed", speed);
 
         transform.position += transform.forward * speed * Time.deltaTime * 3;
     }
