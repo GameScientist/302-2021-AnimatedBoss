@@ -64,6 +64,7 @@ public class FootAnimator : MonoBehaviour
         // lateral movement: (z + x)
         float frontToBack = Mathf.Sin(time);
         finalPos += goon.moveDir * frontToBack * goon.walkScale.z;
+        finalPos.z = frontToBack * goon.walkScale.z; // Meant to prevent the legs from clipping into each other.
 
         // vertical movement: (y)
         finalPos.y += Mathf.Cos(time) * goon.walkScale.y;
