@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FootAnimator : MonoBehaviour
+/// <summary>
+/// This script animates the foot / legs.
+/// Chaing the local position of this object (ik target).
+/// </summary>
+public class GoonFootAnimator : MonoBehaviour
 {
     /// <summary>
     /// The local-space starting position of this object.
@@ -21,7 +25,7 @@ public class FootAnimator : MonoBehaviour
     /// </summary>
     public float stepOffset = 0;
 
-    HeroController hero;
+    GoonControler goon;
 
     private Vector3 targetPos;
     private Quaternion targetRot;
@@ -29,8 +33,7 @@ public class FootAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hero = GetComponentInParent<HeroController>();
-        print(hero);
+        goon = GetComponentInParent<GoonControler>();
         startingPos = transform.localPosition;
         startingRot = transform.localRotation;
     }
@@ -38,12 +41,12 @@ public class FootAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (hero.state)
+        switch (goon.state)
         {
-            case HeroController.States.Idle:
+            case GoonControler.States.Idle:
                 AnimateIdle();
                 break;
-            case HeroController.States.Move:
+            case GoonControler.States.Walk:
                 AnimateWalk();
                 break;
         }
@@ -56,28 +59,27 @@ public class FootAnimator : MonoBehaviour
     {
         Vector3 finalPos = startingPos;
 
-        float time = (Time.time + stepOffset) * hero.stepSpeed;
+        float time = (Time.time + stepOffset) * goon.stepSpeed;
 
         // lateral movement: (z + x)
         float frontToBack = Mathf.Sin(time);
-        //finalPos += hero.moveDir * frontToBack * hero.walkScale.z;
-        finalPos.z = frontToBack*hero.walkScale.z;
+        finalPos += goon.moveDir * frontToBack * goon.walkScale.z;
 
         // vertical movement: (y)
-        finalPos.y += Mathf.Cos(time) * hero.walkScale.y;
+        finalPos.y += Mathf.Cos(time) * goon.walkScale.y;
 
-        finalPos.x *= hero.walkScale.x;
+        finalPos.x *= goon.walkScale.x;
 
         bool isOnGround = (finalPos.y < startingPos.y);
 
         if (isOnGround) finalPos.y = startingPos.y;
 
         // convert from z(-1 to 1) to p (0 to 1 to 0)
-        float p = 1 - Mathf.Abs(frontToBack);
+        float p = 1-Mathf.Abs(frontToBack);
 
         float anklePitch = isOnGround ? 0 : -p * 20;
 
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.1f);
+        transform.localPosition = finalPos;
 
         //targetPos = transform.TransformPoint(finalPos);
 
@@ -87,21 +89,21 @@ public class FootAnimator : MonoBehaviour
 
     void AnimateIdle()
     {
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, startingPos, 0.1f);
+        //transform.localPosition = startingPos;
         //transform.localRotation = startingRot;
 
         //targetPos = transform.TransformPoint(startingPos);
         //targetRot = transform.parent.rotation * startingRot;
-
+        
         FindGround();
     }
     void FindGround()
     {
-        Ray ray = new Ray(transform.position + new Vector3(0, .5f, 0), Vector3.down * 2);
+        Ray ray = new Ray(transform.position + new Vector3(0,.5f, 0), Vector3.down*2);
 
         Debug.DrawRay(ray.origin, ray.direction);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if(Physics.Raycast(ray, out RaycastHit hit))
         {
             transform.position = hit.point;
 
