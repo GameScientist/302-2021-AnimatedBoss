@@ -17,9 +17,24 @@ public class HeroController : MonoBehaviour
     private CharacterController pawn;
     public float moveSpeed = 5;
     public float stepSpeed = 5;
+    public float jumpImpulse = 5;
     public Transform cam;
 
+    private bool isJumpHeld = false;
+
+    private float verticalVelocity = 0;
+
     public Vector3 walkScale = Vector3.one;
+
+    private float timeLeftGrounded = 0;
+
+    public bool isGrounded
+    {
+        get
+        { // return true is pawn is on ground OR "coyote time"
+            return pawn.isGrounded || timeLeftGrounded > 0;
+        }
+    }
     public States state { get; private set; }
     public Vector3 moveDir { get; private set; }
     // Start is called before the first frame update
@@ -39,16 +54,34 @@ public class HeroController : MonoBehaviour
 
         if (moveDir.sqrMagnitude > 1) moveDir.Normalize();
 
-        if(moveDir.magnitude >= 0.1f)
+        if (Input.GetButtonDown("Jump")) isJumpHeld = true;
+        else isJumpHeld = false;
+
+        verticalVelocity += 10 * Time.deltaTime;
+        Vector3 moveDelta;
+        if (moveDir.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             moveDir = transform.rotation * Vector3.forward;
-            pawn.SimpleMove(moveDir * moveSpeed);
+            moveDelta = moveDir * moveSpeed + verticalVelocity * Vector3.down;
         }
+        else moveDelta = verticalVelocity * Vector3.down;
+        CollisionFlags flags = pawn.Move(moveDelta * Time.deltaTime);
+        if (isGrounded)
+        {
+            verticalVelocity = 0; // on ground, zero-out gravity below.
+            timeLeftGrounded = 0.16f;
 
-        
-        state = (moveDir.magnitude > .1f) ? States.Move : States.Idle;
+            if (isJumpHeld)
+            {
+                verticalVelocity = -jumpImpulse;
+                timeLeftGrounded = 0; // not on ground (for animation's sake)
+            }
+        }
+        if (isGrounded) state = (moveDir.magnitude > .1f) ? States.Move : States.Idle;
+        else state = States.Jump;
+        print(moveDir);
     }
 }

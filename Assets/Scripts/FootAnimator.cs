@@ -46,6 +46,9 @@ public class FootAnimator : MonoBehaviour
             case HeroController.States.Move:
                 AnimateWalk();
                 break;
+            case HeroController.States.Jump:
+                AnimateJump();
+                break;
         }
 
         //transform.position = AnimMath.Slide(transform.position, targetPos, .01f);
@@ -111,5 +114,11 @@ public class FootAnimator : MonoBehaviour
         {
 
         }
+    }
+    void AnimateJump()
+    {
+        Vector3 finalPos = startingPos;
+        finalPos.z = -2;
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.01f);
     }
 }

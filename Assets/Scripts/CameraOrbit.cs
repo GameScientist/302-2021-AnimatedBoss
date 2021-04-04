@@ -9,8 +9,8 @@ public class CameraOrbit : MonoBehaviour
     private float yaw = 0;
     private float pitch = 0;
 
-    private float cameraSensitivityX = 16; // How quickly the player can move the camera horizontally.
-    private float cameraSensitivityY = 9; // How quickly the player can move the camera vertically.
+    private float cameraSensitivityX = 4; // How quickly the player can move the camera horizontally.
+    private float cameraSensitivityY = 1; // How quickly the player can move the camera vertically.
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,7 @@ public class CameraOrbit : MonoBehaviour
         yaw += mx * cameraSensitivityX;
         pitch -= my * cameraSensitivityY;
 
-        pitch = Mathf.Clamp(pitch, -5, 89);
+        pitch = Mathf.Clamp(pitch, -10, 75);
         transform.rotation = AnimMath.Slide(transform.rotation, Quaternion.Euler(pitch, yaw, 0), .001f);
     }
 }
