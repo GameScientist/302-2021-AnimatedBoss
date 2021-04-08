@@ -22,6 +22,9 @@ public class HeroController : MonoBehaviour
 
     private bool isJumpHeld = false;
 
+    private bool spinning = false;
+    public float spinTime = 0;
+
     private float verticalVelocity = 0;
 
     public Vector3 walkScale = Vector3.one;
@@ -40,7 +43,7 @@ public class HeroController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        state = States.Idle;
+        state = States.Dead;
         pawn = GetComponent<CharacterController>();
     }
 
@@ -68,7 +71,7 @@ public class HeroController : MonoBehaviour
             moveDelta = moveDir * moveSpeed + verticalVelocity * Vector3.down;
         }
         else moveDelta = verticalVelocity * Vector3.down;
-        CollisionFlags flags = pawn.Move(moveDelta * Time.deltaTime);
+        pawn.Move(moveDelta * Time.deltaTime);
         if (isGrounded)
         {
             verticalVelocity = 0; // on ground, zero-out gravity below.
@@ -80,8 +83,25 @@ public class HeroController : MonoBehaviour
                 timeLeftGrounded = 0; // not on ground (for animation's sake)
             }
         }
+        if (Input.GetButtonDown("Fire1") && !spinning) spinning = true;
+        /*if (spinning)
+        {
+            if (spinTime >= 0.6f)
+            {
+                spinTime = 0f;
+                spinning = false;
+            }
+            else
+            {
+                spinTime += Time.deltaTime;
+                if (spinTime <= 0.2f)
+                {
+                    state = States.Attack;
+                    return;
+                }
+            }
+        }
         if (isGrounded) state = (moveDir.magnitude > .1f) ? States.Move : States.Idle;
-        else state = States.Jump;
-        print(moveDir);
+        else state = (verticalVelocity > 0) ? States.Fall : States.Jump;*/
     }
 }

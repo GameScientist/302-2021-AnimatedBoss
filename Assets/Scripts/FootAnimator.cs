@@ -30,7 +30,6 @@ public class FootAnimator : MonoBehaviour
     void Start()
     {
         hero = GetComponentInParent<HeroController>();
-        print(hero);
         startingPos = transform.localPosition;
         startingRot = transform.localRotation;
     }
@@ -48,6 +47,9 @@ public class FootAnimator : MonoBehaviour
                 break;
             case HeroController.States.Jump:
                 AnimateJump();
+                break;
+            case HeroController.States.Fall:
+                AnimateFall();
                 break;
         }
 
@@ -80,7 +82,7 @@ public class FootAnimator : MonoBehaviour
 
         float anklePitch = isOnGround ? 0 : -p * 20;
 
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.1f);
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.9f);
 
         //targetPos = transform.TransformPoint(finalPos);
 
@@ -119,6 +121,12 @@ public class FootAnimator : MonoBehaviour
     {
         Vector3 finalPos = startingPos;
         finalPos.z = -2;
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.1f);
+    }
+    void AnimateFall()
+    {
+        Vector3 finalPos = startingPos;
+        finalPos.z = 2;
         transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.01f);
     }
 }

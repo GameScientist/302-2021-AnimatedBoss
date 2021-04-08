@@ -46,6 +46,15 @@ public class HandAnimator : MonoBehaviour
             case HeroController.States.Move:
                 AnimateWalk();
                 break;
+            case HeroController.States.Jump:
+                AnimateJump();
+                break;
+            case HeroController.States.Fall:
+                AnimateFall();
+                break;
+            case HeroController.States.Attack:
+                AnimateAttack();
+                break;
         }
 
         //transform.position = AnimMath.Slide(transform.position, targetPos, .01f);
@@ -77,7 +86,7 @@ public class HandAnimator : MonoBehaviour
 
         float anklePitch = isOnGround ? 0 : -p * 20;
 
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.1f);
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.9f);
 
         //targetPos = transform.TransformPoint(finalPos);
 
@@ -94,7 +103,7 @@ public class HandAnimator : MonoBehaviour
         // lateral movement: (z + x)
         float frontToBack = Mathf.Sin(time);
         //finalPos += hero.moveDir * frontToBack * hero.walkScale.z;
-        finalPos.z = frontToBack * hero.walkScale.z / 2F;
+        finalPos.z = frontToBack * hero.walkScale.z / 2f;
 
         // vertical movement: (y)
         //finalPos.y += Mathf.Cos(time) * hero.walkScale.y;
@@ -110,11 +119,32 @@ public class HandAnimator : MonoBehaviour
 
         float anklePitch = isOnGround ? 0 : -p * 20;
 
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.1f);
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.9f);
 
         //targetPos = transform.TransformPoint(finalPos);
 
         //targetRot = transform.parent.rotation * startingRot * Quaternion.Euler(0, 0, anklePitch);
         transform.localRotation = startingRot * Quaternion.Euler(0, 0, anklePitch);
+    }
+    void AnimateJump()
+    {
+        Vector3 finalPos = startingPos;
+        finalPos.y = 2.5f;
+        finalPos.z = 2;
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.1f);
+    }
+    void AnimateFall()
+    {
+        Vector3 finalPos = startingPos;
+        finalPos.y = 2.5f;
+        finalPos.z = -2;
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.01f);
+    }
+    void AnimateAttack()
+    {
+        Vector3 finalPos = startingPos;
+        finalPos.y = 0.5f;
+        finalPos.z = 0;
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.9f);
     }
 }
