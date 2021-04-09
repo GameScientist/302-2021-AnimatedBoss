@@ -34,16 +34,6 @@ public class TorsoAnimator : MonoBehaviour
             bone.weight = 1;
             transform.rotation = Quaternion.AngleAxis(Mathf.Lerp(startingAngle.y, spinAngle, hero.spinTime / 0.2f), transform.up);
         }
-        else if (hero.state == HeroController.States.Dead)
-        {
-            bone.weight = 1;
-            if (deathTime <= 0.5f) transform.position = Vector3.Lerp(transform.up * 1.5f, transform.up * 3, deathTime/2);
-            else transform.position = Vector3.Lerp(transform.up * 3, transform.up * 0, deathTime);
-            transform.rotation = Quaternion.AngleAxis(Mathf.Lerp(startingAngle.x, deathAngle, hero.spinTime), transform.right);
-            deathTime += Time.deltaTime;
-            deathTime = Mathf.Clamp(deathTime, 0f, 1f);
-            print(transform.rotation);
-        }
         else
         {
             bone.weight = 0;
