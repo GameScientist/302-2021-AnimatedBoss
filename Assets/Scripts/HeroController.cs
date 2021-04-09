@@ -7,7 +7,9 @@ public class HeroController : MonoBehaviour
     public enum States
     {
         Idle,
-        Move,
+        Walk,
+        Jog,
+        Run,
         Jump,
         Fall,
         Attack,
@@ -35,6 +37,11 @@ public class HeroController : MonoBehaviour
 
     private bool gibbed;
 
+    private float startMoveSpeed;
+    private float startStepSpeed;
+    private float startJumpImpulse;
+    private float momentum = 0;
+
     public bool isGrounded
     {
         get
@@ -47,9 +54,12 @@ public class HeroController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        state = States.Dead;
+        state = States.Idle;
         pawn = GetComponent<CharacterController>();
         limbs = GetComponentsInChildren<Rigidbody>();
+        startMoveSpeed = moveSpeed;
+        startStepSpeed = stepSpeed;
+        startJumpImpulse = jumpImpulse;
     }
 
     // Update is called once per frame
@@ -64,12 +74,10 @@ public class HeroController : MonoBehaviour
                 {
                     limb.useGravity = true;
                     BoxCollider box = limb.GetComponent<BoxCollider>();
-                    print(box);
                     if (box != null) box.enabled = true;
                     else
                     {
                         CapsuleCollider capsule = limb.GetComponent<CapsuleCollider>();
-                        print(capsule);
                         if (capsule != null) capsule.enabled = true;
                     }
                     limb.transform.parent = null;
@@ -79,6 +87,8 @@ public class HeroController : MonoBehaviour
         }
         else
         {
+            moveSpeed = Mathf.Lerp(startMoveSpeed, startMoveSpeed * 2, momentum);
+
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
@@ -89,7 +99,7 @@ public class HeroController : MonoBehaviour
             if (Input.GetButtonDown("Jump")) isJumpHeld = true;
             else isJumpHeld = false;
 
-            verticalVelocity += 10 * Time.deltaTime;
+            verticalVelocity += jumpImpulse * 2 * Time.deltaTime;
             Vector3 moveDelta;
             if (moveDir.magnitude >= 0.1f)
             {
@@ -104,11 +114,12 @@ public class HeroController : MonoBehaviour
             if (isGrounded)
             {
                 verticalVelocity = 0; // on ground, zero-out gravity below.
-                timeLeftGrounded = 0.16f;
+                if (pawn.isGrounded) timeLeftGrounded = 0.16f;
+                else timeLeftGrounded -= Time.deltaTime;
 
                 if (isJumpHeld)
                 {
-                    verticalVelocity = -jumpImpulse;
+                    verticalVelocity = -jumpImpulse * (momentum + 1);
                     timeLeftGrounded = 0; // not on ground (for animation's sake)
                 }
             }
@@ -122,16 +133,42 @@ public class HeroController : MonoBehaviour
                 }
                 else
                 {
-                    spinTime += Time.deltaTime;
                     if (spinTime <= 0.2f)
                     {
                         state = States.Attack;
+                        spinTime += Time.deltaTime;
+                        if (!isGrounded) verticalVelocity = -jumpImpulse;
                         return;
                     }
+                    else if(isGrounded) spinTime += Time.deltaTime;
                 }
             }
-            if (isGrounded) state = (moveDir.magnitude > .1f) ? States.Move : States.Idle;
+            if (isGrounded)
+            {
+                if (Input.GetButton("Fire3") && moveDir.magnitude > .1f)
+                {
+                    momentum += Time.deltaTime;
+                    if(momentum>=1)
+                    {
+                        stepSpeed = startStepSpeed * 2;
+                        state = States.Run;
+                    }
+                    else
+                    {
+                        stepSpeed = startStepSpeed * 1.5f;
+                        state = States.Jog;
+                    }
+                }
+                else
+                {
+                    state = (moveDir.magnitude > .1f) ? States.Walk : States.Idle;
+                    momentum -= Time.deltaTime;
+                    stepSpeed = startStepSpeed;
+                }
+            }
             else state = (verticalVelocity > 0) ? States.Fall : States.Jump;
+            momentum = Mathf.Clamp(momentum, 0f, 1f);
+            print(isGrounded);
         }
     }
 }

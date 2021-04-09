@@ -26,6 +26,8 @@ public class FootAnimator : MonoBehaviour
     private Vector3 targetPos;
     private Quaternion targetRot;
 
+    private float easing;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,15 +42,30 @@ public class FootAnimator : MonoBehaviour
         switch (hero.state)
         {
             case HeroController.States.Idle:
+                easing = 0.0625f;
                 AnimateIdle();
                 break;
-            case HeroController.States.Move:
+            case HeroController.States.Walk:
+                easing = 0.125f;
+                if (stepOffset > 0) stepOffset = 1.57f;
+                AnimateWalk();
+                break;
+            case HeroController.States.Jog:
+                easing = 0.25f;
+                if (stepOffset > 0) stepOffset = 3.14f;
+                AnimateWalk();
+                break;
+            case HeroController.States.Run:
+                easing = 0.5f;
+                if (stepOffset > 0) stepOffset = 2.355f;
                 AnimateWalk();
                 break;
             case HeroController.States.Jump:
+                easing = 0.03125f;
                 AnimateJump();
                 break;
             case HeroController.States.Fall:
+                easing = 0.015625f;
                 AnimateFall();
                 break;
         }
@@ -82,7 +99,7 @@ public class FootAnimator : MonoBehaviour
 
         float anklePitch = isOnGround ? 0 : -p * 20;
 
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.9f);
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
 
         //targetPos = transform.TransformPoint(finalPos);
 
@@ -92,7 +109,7 @@ public class FootAnimator : MonoBehaviour
 
     void AnimateIdle()
     {
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, startingPos, 0.1f);
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, startingPos, easing);
         //transform.localRotation = startingRot;
 
         //targetPos = transform.TransformPoint(startingPos);
@@ -121,12 +138,12 @@ public class FootAnimator : MonoBehaviour
     {
         Vector3 finalPos = startingPos;
         finalPos.z = -2;
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.1f);
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
     }
     void AnimateFall()
     {
         Vector3 finalPos = startingPos;
         finalPos.z = 2;
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, 0.01f);
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
     }
 }
