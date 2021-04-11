@@ -93,6 +93,7 @@ public class HeroController : MonoBehaviour
             {
                 if (Input.GetButton("Fire3") && moveDir.magnitude > .1f)
                 {
+                    running = true;
                     momentum = Mathf.Clamp01(momentum);
                     if (momentum >= 1)
                     {
@@ -107,11 +108,12 @@ public class HeroController : MonoBehaviour
                 {
                     momentum = Mathf.Clamp(momentum, 0, 0.5f);
                     stepSpeed = startStepSpeed;
+                    running = false;
                 }
             }
             momentum = Mathf.Clamp(momentum, 0f, 1f);
             state = SetState();
-            print(momentum);
+            print(state);
         }
     }
     private void MovePlayer()
@@ -141,8 +143,9 @@ public class HeroController : MonoBehaviour
                 if (spinTime <= 0.2f)
                 {
                     if (!isGrounded) verticalVelocity = -jumpImpulse;
+                    spinTime += Time.deltaTime;
                 }
-                spinTime += Time.deltaTime;
+                else if (isGrounded) spinTime += Time.deltaTime;
             }
         }
         Vector3 moveDelta;
@@ -184,8 +187,8 @@ public class HeroController : MonoBehaviour
         if (spinning && spinTime <= 0.2f) return States.Attack;
         else if (isGrounded)
         {
-            if (running) return (pawn.velocity.sqrMagnitude >= 20) ? States.Run : States.Jog;
-            else return (pawn.velocity.sqrMagnitude > 0) ? States.Walk : States.Idle;
+            if (running) return (momentum >= 1) ? States.Run : States.Jog;
+            else return (momentum > 0) ? States.Walk : States.Idle;
         }
         else return (verticalVelocity > 0) ? States.Fall : States.Jump;
     }
