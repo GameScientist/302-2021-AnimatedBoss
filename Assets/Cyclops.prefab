@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 88444202}
   - component: {fileID: 88444203}
+  - component: {fileID: 2026908397}
+  - component: {fileID: 2026908398}
   m_Layer: 0
   m_Name: IK Tail End
   m_TagString: Untagged
@@ -45,11 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 0}
+    m_ConstrainedObject: {fileID: 3175340758848376708}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
+        transform: {fileID: 88444202}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -73,8 +75,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
+    m_MinLimit: -45
+    m_MaxLimit: 45
     m_AimAxis: 2
     m_UpAxis: 4
     m_WorldUpType: 0
@@ -85,8 +87,32 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-  m_SourceObjectsGUIToggle: 0
-  m_SettingsGUIToggle: 0
+  m_SourceObjectsGUIToggle: 1
+  m_SettingsGUIToggle: 1
+--- !u!114 &2026908397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88444201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48948dfe9d76b07488dacd46a7955fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2026908398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88444201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af7400ff2c94e64c8119a179bf6a763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1321588498
 GameObject:
   m_ObjectHideFlags: 0
