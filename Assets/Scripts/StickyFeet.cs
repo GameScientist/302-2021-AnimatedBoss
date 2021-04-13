@@ -6,18 +6,22 @@ public class StickyFeet : MonoBehaviour
 {
     public Transform stepPosition;
     public AnimationCurve verticalStepMovement;
-    private Vector3 previousPlantedPosition;
-    private Quaternion previousPlantedRotation;
-    private Vector3 plantedPosition;
-    private Quaternion plantedRotation;
-    private float timeLength = .25f;
-    private float timeCurrent = 0;
-
+    public AnimationCurve rotationMovement;
+    public Vector3 previousPlantedPosition;
+    public Quaternion previousPlantedRotation;
+    public Vector3 plantedPosition;
+    public Quaternion plantedRotation;
+    private float timeLength = 1;
+    private float timeCurrent = 1;
+    public float offset;
+    public StickyFeet parallelFoot;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //DoRayCast();
+        previousPlantedPosition = transform.position;
+        plantedPosition = stepPosition.position;
     }
 
     // Update is called once per frame
@@ -26,6 +30,7 @@ public class StickyFeet : MonoBehaviour
         if (CheckIfCanStep())
         {
             DoRayCast();
+            //print(gameObject + "Do ray cast.");
         }
         if (timeCurrent < timeLength)
         {
@@ -36,20 +41,24 @@ public class StickyFeet : MonoBehaviour
             Vector3 finalPosition = AnimMath.Lerp(previousPlantedPosition, plantedPosition, p);
             finalPosition.y += verticalStepMovement.Evaluate(p);
             transform.position = finalPosition;
-            transform.rotation = AnimMath.Lerp(previousPlantedRotation, plantedRotation, p);
-
+            //transform.rotation = AnimMath.Lerp(previousPlantedRotation, plantedRotation, p);
+            //print(gameObject + "Pick up feet.");
+            //print(gameObject + ": " + timeCurrent);
         }
         else
         {
             transform.position = plantedPosition;
-            transform.rotation = plantedRotation;
+            //transform.rotation = plantedRotation;
+            //print(gameObject + "Plant feet.");
         }
+        print(timeCurrent);
     }
 
     bool CheckIfCanStep()
     {
         Vector3 vBetween = transform.position - stepPosition.position;
-        float threshold = 5;
+        float threshold = 20 + offset;
+        //print(gameObject + ": " + vBetween);
         return (vBetween.sqrMagnitude > threshold * threshold);
     }
 

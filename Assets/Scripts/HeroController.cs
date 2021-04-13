@@ -113,7 +113,7 @@ public class HeroController : MonoBehaviour
             }
             momentum = Mathf.Clamp(momentum, 0f, 1f);
             state = SetState();
-            print(state);
+            //print(state);
         }
     }
     private void MovePlayer()
