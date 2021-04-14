@@ -46,6 +46,7 @@ public class HeroController : MonoBehaviour
     private bool vulnerable = true;
     private float postHitInvulnerabilityTime = 0;
     private Health health;
+    public Area currentArea = null;
 
     public bool isGrounded
     {
@@ -146,7 +147,7 @@ public class HeroController : MonoBehaviour
             {
                 if (spinTime <= 0.2f)
                 {
-                    SpinAttack hitBox = GetComponentInChildren<SpinAttack>();
+                    SpinAttack hitBox = GetComponentInChildren<SpinAttack>(true);
                     hitBox.gameObject.SetActive(true);
                     if (!isGrounded) verticalVelocity = -jumpImpulse;
                     spinTime += Time.deltaTime;
@@ -155,7 +156,7 @@ public class HeroController : MonoBehaviour
                 {
                     if (isGrounded) spinTime += Time.deltaTime;
                     SpinAttack hitBox = GetComponentInChildren<SpinAttack>();
-                    hitBox.gameObject.SetActive(true);
+                    if(hitBox != null)hitBox.gameObject.SetActive(false);
                 }
             }
         }

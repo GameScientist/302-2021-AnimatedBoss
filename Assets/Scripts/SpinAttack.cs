@@ -10,7 +10,9 @@ public class SpinAttack : MonoBehaviour
         {
             Health health = other.GetComponentInParent<Health>();
             health.Damage();
-            print("Ow!");
+            HeroController hero = GetComponentInParent<HeroController>();
+            Destroy(hero.currentArea.gameObject);
+            hero.currentArea = null;
         }
     }
 }
