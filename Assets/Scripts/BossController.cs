@@ -129,14 +129,12 @@ public class BossController : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        print(state);
     }
     
     // Update is called once per frame
     void Update()
     {
         StateManagement();
-        print(bossState);
     }
     private void StateManagement()
     {

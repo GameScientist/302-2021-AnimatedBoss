@@ -43,6 +43,9 @@ public class HeroController : MonoBehaviour
     private float startJumpImpulse;
     private float momentum = 0;
     private bool running;
+    private bool vulnerable = true;
+    private float postHitInvulnerabilityTime = 0;
+    private Health health;
 
     public bool isGrounded
     {
@@ -58,6 +61,7 @@ public class HeroController : MonoBehaviour
     {
         state = States.Idle;
         pawn = GetComponent<CharacterController>();
+        health = GetComponent<Health>();
         limbs = GetComponentsInChildren<Rigidbody>();
         startStepSpeed = stepSpeed;
         startJumpImpulse = jumpImpulse;
@@ -142,10 +146,17 @@ public class HeroController : MonoBehaviour
             {
                 if (spinTime <= 0.2f)
                 {
+                    SpinAttack hitBox = GetComponentInChildren<SpinAttack>();
+                    hitBox.gameObject.SetActive(true);
                     if (!isGrounded) verticalVelocity = -jumpImpulse;
                     spinTime += Time.deltaTime;
                 }
-                else if (isGrounded) spinTime += Time.deltaTime;
+                else
+                {
+                    if (isGrounded) spinTime += Time.deltaTime;
+                    SpinAttack hitBox = GetComponentInChildren<SpinAttack>();
+                    hitBox.gameObject.SetActive(true);
+                }
             }
         }
         Vector3 moveDelta;
@@ -191,5 +202,10 @@ public class HeroController : MonoBehaviour
             else return (momentum > 0) ? States.Walk : States.Idle;
         }
         else return (verticalVelocity > 0) ? States.Fall : States.Jump;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Damage")) health.Damage();
     }
 }

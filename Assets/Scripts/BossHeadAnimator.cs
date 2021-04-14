@@ -20,7 +20,7 @@ public class BossHeadAnimator : MonoBehaviour
         switch (boss.bossState)
         {
             case BossController.BossStates.Idle:
-                idleTime = 0.5f;
+                attackTime = 0.5f;
                 if (idleTime <= 0) transform.localPosition = AnimMath.Slide(transform.localPosition, new Vector3(-45, -45, 30.2969398f), 0.5f);
                 else
                 {
@@ -33,11 +33,11 @@ public class BossHeadAnimator : MonoBehaviour
                 transform.position = AnimMath.Slide(transform.position, hero.position, 0.5f);
                 break;
             case BossController.BossStates.Attack:
-                if (idleTime <= 0) transform.localPosition = AnimMath.Slide(transform.localPosition, new Vector3(0, -45, 58.30734f), 0.125f);
+                if (attackTime <= 0) transform.localPosition = AnimMath.Slide(transform.localPosition, new Vector3(0, -45, 58.30734f), 0.125f);
                 else
                 {
                     transform.localPosition = AnimMath.Slide(transform.localPosition, new Vector3(0, 77, 30.2969398f), 0.125f);
-                    idleTime -= Time.deltaTime;
+                    attackTime -= Time.deltaTime;
                 }
                 break;
             case BossController.BossStates.Dead:
