@@ -81,14 +81,18 @@ public class BossController : MonoBehaviour
             }
             public override void OnEnd()
             {
+                boss.agent.ResetPath();
                 base.OnEnd();
             }
         }
         public class Attack : State
         {
+            float stateTime = 0;
             public override State Update()
             {
-                return base.Update();
+                stateTime += Time.deltaTime;
+                if (stateTime >= 1) return new States.Idle();
+                return null;
             }
             public override void OnStart(BossController boss)
             {
@@ -132,6 +136,7 @@ public class BossController : MonoBehaviour
     void Update()
     {
         StateManagement();
+        print(bossState);
     }
     private void StateManagement()
     {

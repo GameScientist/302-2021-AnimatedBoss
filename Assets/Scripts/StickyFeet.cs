@@ -51,7 +51,6 @@ public class StickyFeet : MonoBehaviour
             //transform.rotation = plantedRotation;
             //print(gameObject + "Plant feet.");
         }
-        print(timeCurrent);
     }
 
     bool CheckIfCanStep()

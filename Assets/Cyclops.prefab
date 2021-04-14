@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &88444203
 MonoBehaviour:
@@ -137,11 +137,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666397804}
   m_LocalRotation: {x: 0.52411884, y: -0.47465646, z: -0.5241195, w: 0.47465727}
-  m_LocalPosition: {x: 11.115244, y: 1, z: 33.69754}
+  m_LocalPosition: {x: 11.115244, y: 0, z: 33.69754}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321588498
 GameObject:
@@ -152,6 +152,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1321588499}
+  - component: {fileID: 1726900741}
+  - component: {fileID: 1726900742}
+  - component: {fileID: 1726900743}
   m_Layer: 0
   m_Name: IK Ribs Constraint
   m_TagString: Untagged
@@ -167,12 +170,145 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321588498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0000067591523, y: 45.715794, z: 28.010403}
+  m_LocalPosition: {x: 0.0000067591523, y: 40.715797, z: 28.010403}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1139775740217058284}
+  - {fileID: 1139775740300720172}
   m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1726900741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321588498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a26fdc198ecb44ebe6c9fe3bd4977f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stomp:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -20
+      outSlope: -20
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: -5
+      inSlope: 80
+      outSlope: 80
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 40
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: -5
+      inSlope: -80
+      outSlope: -80
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 20
+      outSlope: 20
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1726900742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321588498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48948dfe9d76b07488dacd46a7955fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1726900743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321588498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 5156227856615235178}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 1321588499}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_MinLimit: -180
+    m_MaxLimit: 180
+    m_AimAxis: 2
+    m_UpAxis: 5
+    m_WorldUpType: 0
+    m_WorldUpObject: {fileID: 0}
+    m_WorldUpAxis: 2
+    m_MaintainOffset: 0
+    m_ConstrainedAxes:
+      x: 1
+      y: 1
+      z: 1
+  m_SourceObjectsGUIToggle: 1
+  m_SettingsGUIToggle: 1
 --- !u!1 &1492694910
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +340,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1492694913
 MonoBehaviour:
@@ -311,11 +447,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916667046}
   m_LocalRotation: {x: 0.52411884, y: 0.4746564, z: 0.5241195, w: 0.47465727}
-  m_LocalPosition: {x: -11.115241, y: 1, z: 33.69755}
+  m_LocalPosition: {x: -11.115241, y: 0, z: 33.69755}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982974382
 GameObject:
@@ -341,11 +477,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982974382}
   m_LocalRotation: {x: 0.5249328, y: 0.4737575, z: 0.5249322, w: 0.47375697}
-  m_LocalPosition: {x: -11.115241, y: 1, z: -11.12953}
+  m_LocalPosition: {x: -11.115241, y: 0, z: -11.12953}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2106354689
 GameObject:
@@ -371,11 +507,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106354689}
   m_LocalRotation: {x: -0.5249327, y: 0.4737575, z: 0.52493227, w: -0.47375694}
-  m_LocalPosition: {x: 11.115236, y: 1, z: -11.12953}
+  m_LocalPosition: {x: 11.115236, y: 0, z: -11.12953}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &31965096620715054
 GameObject:
@@ -420,8 +556,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05, z: 0.05}
-  m_Center: {x: 0, y: 0.025, z: 0}
+  m_Size: {x: 0.03, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &318506973277306428
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +748,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.075, z: 0.07}
+  m_Size: {x: 0.03, y: 0.075, z: 0.07}
   m_Center: {x: 0, y: 0.015, z: 0}
 --- !u!1 &693286684100011408
 GameObject:
@@ -669,7 +805,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873089365874417545}
   m_LocalRotation: {x: 0.65175426, y: 0, z: 0, w: 0.75843024}
-  m_LocalPosition: {x: 0, y: 40.568466, z: -20.314423}
+  m_LocalPosition: {x: 0, y: 35.56847, z: -20.314423}
   m_LocalScale: {x: 100, y: 100, z: 99.99898}
   m_Children:
   - {fileID: 5238745687397498923}
@@ -722,7 +858,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139775739430189577}
   m_LocalRotation: {x: 0.5249328, y: 0.4737575, z: 0.5249322, w: 0.47375697}
-  m_LocalPosition: {x: -11.115241, y: 2.0763588, z: -21.12953}
+  m_LocalPosition: {x: -11.115241, y: 0, z: -21.12953}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
@@ -747,15 +883,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 30
-      outSlope: 30
+      inSlope: 20
+      outSlope: 20
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
-      value: 15
+      value: 10
       inSlope: 0
       outSlope: 0
       tangentMode: 34
@@ -765,8 +901,41 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -30
-      outSlope: -30
+      inSlope: -20
+      outSlope: -20
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationMovement:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 180
+      outSlope: 180
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 90
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -180
+      outSlope: -180
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -778,6 +947,8 @@ MonoBehaviour:
   previousPlantedRotation: {x: 0, y: 0, z: 0, w: 1}
   plantedPosition: {x: 0, y: 0, z: 0}
   plantedRotation: {x: 0, y: 0, z: 0, w: 1}
+  offset: 3
+  parallelFoot: {fileID: 478723311}
 --- !u!114 &1139775739430189621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,7 +1004,7 @@ MonoBehaviour:
       y: 1
       z: 1
   m_SourceObjectsGUIToggle: 1
-  m_SettingsGUIToggle: 0
+  m_SettingsGUIToggle: 1
 --- !u!114 &1139775739430189620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -902,8 +1073,6 @@ Transform:
   m_Children:
   - {fileID: 1139775739430189578}
   - {fileID: 1139775740804186495}
-  - {fileID: 1139775740217058284}
-  - {fileID: 1139775740300720172}
   - {fileID: 88444202}
   - {fileID: 1492694911}
   - {fileID: 1321588499}
@@ -1012,11 +1181,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139775740217058275}
   m_LocalRotation: {x: 0.52411884, y: 0.4746564, z: 0.5241195, w: 0.47465727}
-  m_LocalPosition: {x: -11.115241, y: 2.0762672, z: 23.697552}
+  m_LocalPosition: {x: -11.115248, y: -45.715794, z: -4.312851}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 2
+  m_Father: {fileID: 1321588499}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1319138656
 MonoBehaviour:
@@ -1037,15 +1206,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 30
-      outSlope: 30
+      inSlope: 20
+      outSlope: 20
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
-      value: 15
+      value: 10
       inSlope: 0
       outSlope: 0
       tangentMode: 34
@@ -1055,8 +1224,41 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -30
-      outSlope: -30
+      inSlope: -20
+      outSlope: -20
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationMovement:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 180
+      outSlope: 180
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 90
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -180
+      outSlope: -180
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1068,6 +1270,8 @@ MonoBehaviour:
   previousPlantedRotation: {x: 0, y: 0, z: 0, w: 0}
   plantedPosition: {x: 0, y: 0, z: 0}
   plantedRotation: {x: 0, y: 0, z: 0, w: 0}
+  offset: 6
+  parallelFoot: {fileID: 1158821982}
 --- !u!114 &1139775740217058287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,11 +1394,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139775740300720163}
   m_LocalRotation: {x: 0.52411884, y: -0.47465646, z: -0.5241195, w: 0.47465727}
-  m_LocalPosition: {x: 11.115244, y: 2.0762749, z: 23.697542}
+  m_LocalPosition: {x: 11.115237, y: -45.715794, z: -4.3128605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1139775739553537396}
-  m_RootOrder: 3
+  m_Father: {fileID: 1321588499}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1158821982
 MonoBehaviour:
@@ -1215,15 +1419,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 30
-      outSlope: 30
+      inSlope: 20
+      outSlope: 20
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
-      value: 15
+      value: 10
       inSlope: 0
       outSlope: 0
       tangentMode: 34
@@ -1233,8 +1437,41 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -30
-      outSlope: -30
+      inSlope: -20
+      outSlope: -20
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationMovement:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 180
+      outSlope: 180
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 90
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -180
+      outSlope: -180
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1246,6 +1483,8 @@ MonoBehaviour:
   previousPlantedRotation: {x: 0, y: 0, z: 0, w: 0}
   plantedPosition: {x: 0, y: 0, z: 0}
   plantedRotation: {x: 0, y: 0, z: 0, w: 0}
+  offset: 0
+  parallelFoot: {fileID: 1319138656}
 --- !u!114 &1139775740300720175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1368,7 +1607,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139775740804186494}
   m_LocalRotation: {x: -0.5249327, y: 0.4737575, z: 0.52493227, w: -0.47375694}
-  m_LocalPosition: {x: 11.115236, y: 2.0763474, z: -21.12953}
+  m_LocalPosition: {x: 11.115236, y: 0, z: -21.12953}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1139775739553537396}
@@ -1393,15 +1632,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 30
-      outSlope: 30
+      inSlope: 20
+      outSlope: 20
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
-      value: 15
+      value: 10
       inSlope: 0
       outSlope: 0
       tangentMode: 34
@@ -1411,8 +1650,41 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -30
-      outSlope: -30
+      inSlope: -20
+      outSlope: -20
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationMovement:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 180
+      outSlope: 180
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 90
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -180
+      outSlope: -180
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1424,6 +1696,8 @@ MonoBehaviour:
   previousPlantedRotation: {x: 0, y: 0, z: 0, w: 0}
   plantedPosition: {x: 0, y: 0, z: 0}
   plantedRotation: {x: 0, y: 0, z: 0, w: 0}
+  offset: 9
+  parallelFoot: {fileID: 1448248538}
 --- !u!114 &1139775740804186490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1594,8 +1868,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05, z: 0.05}
-  m_Center: {x: 0, y: 0.025, z: 0}
+  m_Size: {x: 0.03, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &1371027615882834434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1959,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.075, z: 0.07}
+  m_Size: {x: 0.03, y: 0.075, z: 0.07}
   m_Center: {x: 0, y: 0.015, z: 0}
 --- !u!1 &1398245536313932395
 GameObject:
@@ -1776,7 +2050,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.075, z: 0.07}
+  m_Size: {x: 0.03, y: 0.075, z: 0.07}
   m_Center: {x: 0, y: 0.015, z: 0}
 --- !u!1 &2069574713403442336
 GameObject:
@@ -1959,7 +2233,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.075, z: 0.07}
+  m_Size: {x: 0.03, y: 0.075, z: 0.07}
   m_Center: {x: 0, y: 0.015, z: 0}
 --- !u!1 &2817373781038023812
 GameObject:
@@ -2065,8 +2339,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05, z: 0.05}
-  m_Center: {x: 0, y: 0.025, z: 0}
+  m_Size: {x: 0.03, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &3103269757124556855
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,8 +2719,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05, z: 0.05}
-  m_Center: {x: 0, y: 0.025, z: 0}
+  m_Size: {x: 0.03, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &7894075381962299595
 GameObject:
   m_ObjectHideFlags: 0
@@ -2628,8 +2902,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 75
-  m_Speed: 4
-  m_Acceleration: 4
+  m_Speed: 16
+  m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 50
