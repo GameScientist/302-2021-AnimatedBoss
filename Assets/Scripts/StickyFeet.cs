@@ -7,18 +7,25 @@ public class StickyFeet : MonoBehaviour
     public Transform stepPosition;
     public AnimationCurve verticalStepMovement;
     public AnimationCurve rotationMovement;
+    public AnimationCurve stompMovement;
     public Vector3 previousPlantedPosition;
     public Quaternion previousPlantedRotation;
     public Vector3 plantedPosition;
     public Quaternion plantedRotation;
-    private float timeLength = 1;
-    private float timeCurrent = 1;
+    private Vector3 stompPosition;
+    private float timeLength = 0.5f;
+    private float timeCurrent = 0.5f;
+    private float stompTimeCurrent = 0f;
+    private float stompTimeLength = 1;
     public float offset;
-    public StickyFeet parallelFoot;
+    BossController boss;
 
     // Start is called before the first frame update
     void Start()
     {
+        BossRibsAnimator ribs = GetComponentInParent<BossRibsAnimator>();
+        if (ribs == null) boss = null;
+        else boss = GetComponentInParent<BossController>();
         //DoRayCast();
         previousPlantedPosition = transform.position;
         plantedPosition = stepPosition.position;
@@ -27,29 +34,45 @@ public class StickyFeet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckIfCanStep())
+        if (boss != null && boss.bossState == BossController.BossStates.Attack)
         {
-            DoRayCast();
-            //print(gameObject + "Do ray cast.");
-        }
-        if (timeCurrent < timeLength)
-        {
-            timeCurrent += Time.deltaTime;
+            stompTimeCurrent += Time.deltaTime;
 
-            float p = timeCurrent / timeLength;
+            float p = stompTimeCurrent / stompTimeLength;
 
-            Vector3 finalPosition = AnimMath.Lerp(previousPlantedPosition, plantedPosition, p);
-            finalPosition.y += verticalStepMovement.Evaluate(p);
-            transform.position = finalPosition;
-            //transform.rotation = AnimMath.Lerp(previousPlantedRotation, plantedRotation, p);
-            //print(gameObject + "Pick up feet.");
-            //print(gameObject + ": " + timeCurrent);
+            Vector3 finalPosition = stompPosition;
+            finalPosition.z += stompMovement.Evaluate(p);
+            transform.localPosition = finalPosition;
+            print(finalPosition.y);
         }
         else
         {
-            transform.position = plantedPosition;
-            //transform.rotation = plantedRotation;
-            //print(gameObject + "Plant feet.");
+            if (CheckIfCanStep())
+            {
+                DoRayCast();
+                //print(gameObject + "Do ray cast.");
+            }
+            if (timeCurrent < timeLength)
+            {
+                timeCurrent += Time.deltaTime;
+
+                float p = timeCurrent / timeLength;
+
+                Vector3 finalPosition = AnimMath.Lerp(previousPlantedPosition, plantedPosition, p);
+                finalPosition.y += verticalStepMovement.Evaluate(p);
+                transform.position = finalPosition;
+                //transform.rotation = AnimMath.Lerp(previousPlantedRotation, plantedRotation, p);
+                //print(gameObject + "Pick up feet.");
+                //print(gameObject + ": " + timeCurrent);
+            }
+            else
+            {
+                transform.position = plantedPosition;
+                //transform.rotation = plantedRotation;
+                //print(gameObject + "Plant feet.");
+            }
+            stompTimeCurrent = 0;
+            stompPosition = transform.localPosition;
         }
     }
 
