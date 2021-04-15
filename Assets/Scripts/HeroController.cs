@@ -138,18 +138,18 @@ public class HeroController : MonoBehaviour
         verticalVelocity += jumpImpulse * 2 * Time.deltaTime;
         if (spinning)
         {
-            if (spinTime >= 0.6f)
+            if (spinTime >= 1)
             {
                 spinTime = 0f;
                 spinning = false;
             }
             else
             {
-                if (spinTime <= 0.2f)
+                if (spinTime <= 0.25f)
                 {
                     SpinAttack hitBox = GetComponentInChildren<SpinAttack>(true);
                     hitBox.gameObject.SetActive(true);
-                    if (!isGrounded) verticalVelocity = -jumpImpulse;
+                    if (!isGrounded) verticalVelocity = -jumpImpulse/2;
                     spinTime += Time.deltaTime;
                 }
                 else
@@ -158,6 +158,8 @@ public class HeroController : MonoBehaviour
                     SpinAttack hitBox = GetComponentInChildren<SpinAttack>();
                     if(hitBox != null)hitBox.gameObject.SetActive(false);
                 }
+                spinTime += Time.deltaTime;
+
             }
         }
         Vector3 moveDelta;
