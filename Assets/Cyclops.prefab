@@ -878,7 +878,8 @@ Transform:
   m_LocalRotation: {x: 0.12636346, y: -0, z: -0, w: 0.99198407}
   m_LocalPosition: {x: -11.115124, y: -37.931484, z: -6.596356}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3618694925918322622}
   m_Father: {fileID: 6335190407717268138}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 14.519, y: 0, z: 0}
@@ -1104,7 +1105,7 @@ MonoBehaviour:
     m_Mid: {fileID: 7698466443328293755}
     m_Tip: {fileID: 1211516410405193219}
     m_Target: {fileID: 1139775739430189578}
-    m_Hint: {fileID: 0}
+    m_Hint: {fileID: 3618694925918322622}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
     m_HintWeight: 1
@@ -1256,7 +1257,8 @@ Transform:
   m_LocalRotation: {x: 0.09268339, y: 0, z: 0, w: 0.9956957}
   m_LocalPosition: {x: -11.115109, y: -43.10248, z: -8.074358}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6092248016189879594}
   m_Father: {fileID: 1321588499}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 10.636, y: 0, z: 0}
@@ -1482,7 +1484,7 @@ MonoBehaviour:
     m_Mid: {fileID: 8110322771191979764}
     m_Tip: {fileID: 5076724056075900334}
     m_Target: {fileID: 1139775740217058284}
-    m_Hint: {fileID: 0}
+    m_Hint: {fileID: 6092248016189879594}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
     m_HintWeight: 1
@@ -1520,7 +1522,8 @@ Transform:
   m_LocalRotation: {x: 0.09268339, y: 0, z: 0, w: 0.9956957}
   m_LocalPosition: {x: 11.1153755, y: -43.102394, z: -8.074371}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4514773860124375612}
   m_Father: {fileID: 1321588499}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 10.636, y: 0, z: 0}
@@ -1746,7 +1749,7 @@ MonoBehaviour:
     m_Mid: {fileID: 6636792890124830680}
     m_Tip: {fileID: 6668045588755100292}
     m_Target: {fileID: 1139775740300720172}
-    m_Hint: {fileID: 0}
+    m_Hint: {fileID: 4514773860124375612}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
     m_HintWeight: 1
@@ -1784,7 +1787,8 @@ Transform:
   m_LocalRotation: {x: 0.12636346, y: 0, z: 0, w: 0.99198407}
   m_LocalPosition: {x: 11.115354, y: -37.931427, z: -6.5963626}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1724852110035581870}
   m_Father: {fileID: 6335190407717268138}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 14.519, y: 0, z: 0}
@@ -2010,7 +2014,7 @@ MonoBehaviour:
     m_Mid: {fileID: 2635408415975907651}
     m_Tip: {fileID: 4725981465471992691}
     m_Target: {fileID: 1139775740804186495}
-    m_Hint: {fileID: 0}
+    m_Hint: {fileID: 1724852110035581870}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
     m_HintWeight: 1
@@ -2492,6 +2496,36 @@ Transform:
   m_Father: {fileID: 5156227856615235178}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2824800518222762609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3618694925918322622}
+  m_Layer: 0
+  m_Name: Back Left Knee Pole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3618694925918322622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2824800518222762609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.000025749207, y: 16.362602, z: 43.7427}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1139775739430189578}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2881264173043527417
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,6 +2941,36 @@ CapsuleCollider:
   m_Height: 0.16
   m_Direction: 1
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!1 &6999253845914515118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4514773860124375612}
+  m_Layer: 0
+  m_Name: Front Right Knee Pole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4514773860124375612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999253845914515118}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.000029563904, y: 11.78338, z: -0.8091917}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1139775740300720172}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7420938047726339134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2953,6 +3017,36 @@ CapsuleCollider:
   m_Height: 0.16
   m_Direction: 1
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!1 &7576833399053792433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724852110035581870}
+  m_Layer: 0
+  m_Name: Back Right Knee Pole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1724852110035581870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576833399053792433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.230488, y: 16.362541, z: 43.742725}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1139775740804186495}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7869471260301460034
 GameObject:
   m_ObjectHideFlags: 0
@@ -3204,6 +3298,36 @@ MonoBehaviour:
   postHit: 0
   vulnerable: 1
   health: 4
+--- !u!1 &8322468467827117758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6092248016189879594}
+  m_Layer: 0
+  m_Name: Front Left Knee Pole
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6092248016189879594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8322468467827117758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.000027656555, y: 11.783401, z: -0.8090787}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1139775740217058284}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8635300536047486411
 GameObject:
   m_ObjectHideFlags: 0

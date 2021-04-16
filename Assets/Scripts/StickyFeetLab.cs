@@ -92,7 +92,6 @@ public class StickyFeetLab : MonoBehaviour
         Vector3 vBetween = transform.position - stepPosition.position;
         // if too close to previous target, don't try to step:
         if (vBetween.sqrMagnitude < moveThreshold * moveThreshold) return false;
-        print("True");
 
         Ray ray = new Ray(stepPosition.position + Vector3.up, Vector3.down);
 
@@ -114,6 +113,7 @@ public class StickyFeetLab : MonoBehaviour
             timeCurrent = 0;
 
             footHasMoved = true;
+
             return true;
         }
         return false;

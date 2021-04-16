@@ -18,6 +18,7 @@ public class StickyFeet : MonoBehaviour
     private float stompTimeCurrent = 0f;
     private float stompTimeLength = 1;
     BossController boss;
+    Transform kneePole;
     public static float moveThreshold = 5;
     public bool isAnimating
     {
@@ -28,6 +29,7 @@ public class StickyFeet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        kneePole = transform.GetChild(0);
         startingRotation = transform.localRotation;
         BossRibsAnimator ribs = GetComponentInParent<BossRibsAnimator>();
         if (ribs == null) boss = null;
@@ -69,14 +71,11 @@ public class StickyFeet : MonoBehaviour
 
                 Vector3 vFromCenter = transform.position - transform.parent.position;
 
+                float height = vFromCenter.y;
                 vFromCenter.y = 0;
                 vFromCenter.Normalize();
                 vFromCenter *= 3;
-                vFromCenter.y += 2.5f;
-                //vFromCenter += transform.position;
-
-                //print(gameObject + "Pick up feet.");
-                //print(gameObject + ": " + timeCurrent);
+                vFromCenter.y += height;
             }
             else
             { // animation is NOT playing
