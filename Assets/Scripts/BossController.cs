@@ -124,6 +124,7 @@ public class BossController : MonoBehaviour
     public Transform hero;
     private NavMeshAgent agent;
     public States.State state;
+    public List<StickyFeet> feet = new List<StickyFeet>();
     public BossStates bossState { get; private set; }
     // Start is called before the first frame update
     void Start()
@@ -135,6 +136,28 @@ public class BossController : MonoBehaviour
     void Update()
     {
         StateManagement();
+        int feetStepping = 0;
+        int feetMoved = 0;
+        foreach (StickyFeet foot in feet)
+        {
+            if (foot.isAnimating) feetStepping++;
+            if (foot.footHasMoved) feetMoved++;
+        }
+        if (feetMoved >= 4)
+        {
+            foreach (StickyFeet foot in feet)
+            {
+                foot.footHasMoved = false;
+            }
+        }
+        foreach (StickyFeet foot in feet)
+        {
+            if (feetStepping < 2)
+            {
+                if (foot.TryToStep()) feetStepping++;
+                print(feetStepping);
+            }
+        }
     }
     private void StateManagement()
     {
