@@ -197,7 +197,7 @@ public class HeroController : MonoBehaviour
         if (transform.position.y <= 0)
         {
             print("Wow!");
-            transform.position = new Vector3(0, 100, 0);
+            transform.position = new Vector3(0, 8.5f, 0);
         }
     }
     private States SetState()
