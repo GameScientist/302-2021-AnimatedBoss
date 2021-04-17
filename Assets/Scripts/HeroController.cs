@@ -123,7 +123,6 @@ public class HeroController : MonoBehaviour
     }
     private void MovePlayer()
     {
-
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -194,6 +193,11 @@ public class HeroController : MonoBehaviour
                 verticalVelocity = -jumpImpulse * (momentum + 1);
                 timeLeftGrounded = 0; // not on ground (for animation's sake)
             }
+        }
+        if (transform.position.y <= 0)
+        {
+            print("Wow!");
+            transform.position = new Vector3(0, 100, 0);
         }
     }
     private States SetState()
