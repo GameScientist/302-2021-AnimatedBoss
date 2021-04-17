@@ -60,6 +60,7 @@ public class HeroController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         state = States.Idle;
         pawn = GetComponent<CharacterController>();
         health = GetComponent<Health>();

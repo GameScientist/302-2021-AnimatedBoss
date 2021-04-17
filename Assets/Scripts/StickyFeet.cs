@@ -100,8 +100,8 @@ public class StickyFeet : MonoBehaviour
 
         Ray ray = new Ray(stepPosition.position + Vector3.up, Vector3.down);
 
-        Debug.DrawRay(ray.origin, ray.direction * 3);
-        if (Physics.Raycast(ray, out RaycastHit hit, 3))
+        Debug.DrawRay(ray.origin, ray.direction * 50);
+        if (Physics.Raycast(ray, out RaycastHit hit, 50))
         {
             // setup beginning of animation:
             previousPlantedPosition = transform.position;

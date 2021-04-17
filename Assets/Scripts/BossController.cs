@@ -53,7 +53,7 @@ public class BossController : MonoBehaviour
             public override State Update()
             {
                 stateTime += Time.deltaTime;
-                if (stateTime >= 1) return new States.Walk();
+                if (stateTime >= 7.5f) return new States.Walk();
                 return null;
             }
             public override void OnStart(BossController boss)
@@ -108,7 +108,8 @@ public class BossController : MonoBehaviour
         {
             public override State Update()
             {
-                return base.Update();
+                boss.agent.SetDestination(boss.exit.position);
+                return null;
             }
             public override void OnStart(BossController boss)
             {
@@ -122,6 +123,7 @@ public class BossController : MonoBehaviour
         }
     }
     public Transform hero;
+    public Transform exit;
     private NavMeshAgent agent;
     public States.State state;
     public List<StickyFeet> feet = new List<StickyFeet>();
