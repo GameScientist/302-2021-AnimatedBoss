@@ -101,6 +101,11 @@ public class BossController : MonoBehaviour
             }
             public override void OnEnd()
             {
+                if(Vector3.Distance(boss.transform.position, boss.hero.position) <= 50)
+                {
+                    Health health = boss.hero.GetComponent<Health>();
+                    health.Damage();
+                }
                 base.OnEnd();
             }
         }
@@ -127,10 +132,12 @@ public class BossController : MonoBehaviour
     private NavMeshAgent agent;
     public States.State state;
     public List<StickyFeet> feet = new List<StickyFeet>();
+    private Health health;
     public BossStates bossState { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
+        health = GetComponent<Health>();
         agent = GetComponent<NavMeshAgent>();
     }
     
@@ -163,11 +170,15 @@ public class BossController : MonoBehaviour
     }
     private void StateManagement()
     {
-        if (state == null) SwitchState(new States.Idle());
+        if (health.health <= 0) SwitchState(new States.Dead());
+        else if (state == null) SwitchState(new States.Idle());
 
         if (state != null)
         {
-            if (state != null) SwitchState(state.Update());
+            if (state != null)
+            {
+                SwitchState(state.Update());
+            }
         };
     }
     /// <summary>

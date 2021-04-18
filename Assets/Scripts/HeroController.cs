@@ -35,6 +35,8 @@ public class HeroController : MonoBehaviour
     private float timeLeftGrounded = 0;
 
     private Rigidbody[] limbs;
+    public TrailRenderer[] armTrails;
+    public TrailRenderer[] legTrails;
 
     private bool gibbed;
 
@@ -142,6 +144,7 @@ public class HeroController : MonoBehaviour
             {
                 spinTime = 0f;
                 spinning = false;
+                foreach (TrailRenderer trail in armTrails) trail.gameObject.SetActive(false);
             }
             else
             {
@@ -149,6 +152,7 @@ public class HeroController : MonoBehaviour
                 {
                     SpinAttack hitBox = GetComponentInChildren<SpinAttack>(true);
                     hitBox.gameObject.SetActive(true);
+                    foreach (TrailRenderer trail in armTrails) trail.gameObject.SetActive(true);
                     if (!isGrounded) verticalVelocity = -jumpImpulse/2;
                     spinTime += Time.deltaTime;
                 }
@@ -174,6 +178,8 @@ public class HeroController : MonoBehaviour
 
             moveDelta = moveDir * moveSpeed + verticalVelocity * Vector3.down;
 
+            if(momentum >= 1) foreach (TrailRenderer trail in legTrails) trail.gameObject.SetActive(true);
+            else foreach (TrailRenderer trail in legTrails) trail.gameObject.SetActive(false);
         }
         else
         {
@@ -197,13 +203,13 @@ public class HeroController : MonoBehaviour
         }
         if (transform.position.y <= 0)
         {
-            print("Wow!");
             transform.position = new Vector3(0, 8.5f, 0);
         }
     }
     private States SetState()
     {
-        if (spinning && spinTime <= 0.2f) return States.Attack;
+        if (health.health <= 0) return States.Dead;
+        else if (spinning && spinTime <= 0.2f) return States.Attack;
         else if (isGrounded)
         {
             if (running) return (momentum >= 1) ? States.Run : States.Jog;

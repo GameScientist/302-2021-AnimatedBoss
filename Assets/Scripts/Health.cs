@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -19,7 +20,13 @@ public class Health : MonoBehaviour
     /// <summary>
     /// How many hits this character can take before dying.
     /// </summary>
-    public int health;
+    public int health = 4;
+
+    public RawImage[] eyes = new RawImage[4];
+
+    public Texture closed;
+
+    public RawImage panel;
 
     /// <summary>
     /// Gets the particle system component and the sprite component while also setting the 
@@ -36,6 +43,12 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int eyeIndex = 0;
+        foreach (RawImage eye in eyes)
+        {
+            eyeIndex++;
+            if (eyeIndex > health) eye.texture = closed;
+        }
         if (postHit && health > 0)
         {
             PostHitInvulnerability();
@@ -48,10 +61,12 @@ public class Health : MonoBehaviour
     private void PostHitInvulnerability()
     {
         postHitTime -= Time.deltaTime;
+        panel.color = Color.Lerp(new Color(1, 1, 1, 0.2f), Color.red, Mathf.Sin(Time.time * 60));
         if (postHitTime <= 0)
         {
             postHitTime = 7.5f;
             postHit = false;
+            panel.color = new Color(1, 1, 1, 0.2f);
         }
     }
     /// <summary>
