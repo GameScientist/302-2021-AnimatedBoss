@@ -144,7 +144,7 @@ public class HeroController : MonoBehaviour
             {
                 spinTime = 0f;
                 spinning = false;
-                foreach (TrailRenderer trail in armTrails) trail.gameObject.SetActive(false);
+                foreach (TrailRenderer trail in armTrails) trail.emitting = false;
             }
             else
             {
@@ -152,7 +152,7 @@ public class HeroController : MonoBehaviour
                 {
                     SpinAttack hitBox = GetComponentInChildren<SpinAttack>(true);
                     hitBox.gameObject.SetActive(true);
-                    foreach (TrailRenderer trail in armTrails) trail.gameObject.SetActive(true);
+                    foreach (TrailRenderer trail in armTrails) trail.emitting = true;
                     if (!isGrounded) verticalVelocity = -jumpImpulse/2;
                     spinTime += Time.deltaTime;
                 }
@@ -178,8 +178,8 @@ public class HeroController : MonoBehaviour
 
             moveDelta = moveDir * moveSpeed + verticalVelocity * Vector3.down;
 
-            if(momentum >= 1) foreach (TrailRenderer trail in legTrails) trail.gameObject.SetActive(true);
-            else foreach (TrailRenderer trail in legTrails) trail.gameObject.SetActive(false);
+            if (momentum >= 1) foreach (TrailRenderer trail in legTrails) trail.emitting = true;
+            else foreach (TrailRenderer trail in legTrails) trail.emitting = false;
         }
         else
         {
