@@ -30,6 +30,8 @@ public class Health : MonoBehaviour
 
     public AudioManager audioManager;
 
+    public CameraOrbit cam;
+
     /// <summary>
     /// Gets the particle system component and the sprite component while also setting the 
     /// </summary>
@@ -81,7 +83,11 @@ public class Health : MonoBehaviour
             health--;
             postHit = true;
             HeroController player = GetComponent<HeroController>();
-            if (player != null) audioManager.Play("Player Damage");
+            if (player != null)
+            {
+                audioManager.Play("Player Damage");
+                cam.shakeIntensity = 7.5f;
+            }
         }
     }
 }
