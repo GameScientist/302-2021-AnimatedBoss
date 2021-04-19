@@ -97,10 +97,12 @@ public class BossController : MonoBehaviour
             public override void OnStart(BossController boss)
             {
                 boss.bossState = BossStates.Attack;
+                boss.audioManager.Play("Roar");
                 base.OnStart(boss);
             }
             public override void OnEnd()
             {
+                boss.audioManager.Play("Stomp");
                 if(Vector3.Distance(boss.transform.position, boss.hero.position) <= 50)
                 {
                     Health health = boss.hero.GetComponent<Health>();
@@ -119,6 +121,7 @@ public class BossController : MonoBehaviour
             public override void OnStart(BossController boss)
             {
                 boss.bossState = BossStates.Dead;
+                boss.audioManager.Play("Monster Defeat");
                 base.OnStart(boss);
             }
             public override void OnEnd()
@@ -133,6 +136,7 @@ public class BossController : MonoBehaviour
     public States.State state;
     public List<StickyFeet> feet = new List<StickyFeet>();
     private Health health;
+    public AudioManager audioManager;
     public BossStates bossState { get; private set; }
     // Start is called before the first frame update
     void Start()
@@ -164,9 +168,10 @@ public class BossController : MonoBehaviour
             if (feetStepping < 2)
             {
                 if (foot.TryToStep()) feetStepping++;
-                print(feetStepping);
             }
         }
+
+        agent.speed = 20 - health.health * 4;
     }
     private void StateManagement()
     {

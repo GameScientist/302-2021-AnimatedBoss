@@ -27,7 +27,6 @@ public class CameraOrbit : MonoBehaviour
         pitch -= my * cameraSensitivityY;
 
         pitch = Mathf.Clamp(pitch, -15, 90);
-        print(pitch);
         transform.rotation = AnimMath.Slide(transform.rotation, Quaternion.Euler(pitch, yaw, 0), .001f);
     }
 }

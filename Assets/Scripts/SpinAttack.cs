@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class SpinAttack : MonoBehaviour
 {
+    public AudioManager audioManager;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Eye"))
+        Health health = other.GetComponentInParent<Health>();
+        if (other.gameObject.CompareTag("Eye") && !health.postHit)
         {
-            Health health = other.GetComponentInParent<Health>();
             health.Damage();
             HeroController hero = GetComponentInParent<HeroController>();
             Area area = hero.currentArea.GetComponent<Area>();
             area.sinking = true;
             hero.currentArea = null;
+            audioManager.Play("Sinking");
+            audioManager.Play("Hit");
+            audioManager.Play("Boss Damage");
         }
     }
 }

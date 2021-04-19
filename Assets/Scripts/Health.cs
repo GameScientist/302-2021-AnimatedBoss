@@ -28,6 +28,8 @@ public class Health : MonoBehaviour
 
     public RawImage panel;
 
+    public AudioManager audioManager;
+
     /// <summary>
     /// Gets the particle system component and the sprite component while also setting the 
     /// </summary>
@@ -78,6 +80,8 @@ public class Health : MonoBehaviour
         {
             health--;
             postHit = true;
+            HeroController player = GetComponent<HeroController>();
+            if (player != null) audioManager.Play("Player Damage");
         }
     }
 }

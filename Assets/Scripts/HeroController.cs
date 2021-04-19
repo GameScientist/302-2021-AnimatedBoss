@@ -42,13 +42,11 @@ public class HeroController : MonoBehaviour
 
     private float maxSpeed = 20;
     private float startStepSpeed;
-    private float startJumpImpulse;
     private float momentum = 0;
     private bool running;
-    private bool vulnerable = true;
-    private float postHitInvulnerabilityTime = 0;
     private Health health;
     public Area currentArea = null;
+    public AudioManager audioManager;
 
     public bool isGrounded
     {
@@ -68,7 +66,8 @@ public class HeroController : MonoBehaviour
         health = GetComponent<Health>();
         limbs = GetComponentsInChildren<Rigidbody>();
         startStepSpeed = stepSpeed;
-        startJumpImpulse = jumpImpulse;
+        audioManager.Play("Ambience");
+        audioManager.Play("Music");
     }
 
     // Update is called once per frame
@@ -120,6 +119,8 @@ public class HeroController : MonoBehaviour
                 }
             }
             momentum = Mathf.Clamp(momentum, 0f, 1f);
+            if (momentum >= 1) audioManager.Play("Max Speed");
+            else audioManager.Stop("Max Speed");
             state = SetState();
             //print(state);
         }
@@ -131,11 +132,23 @@ public class HeroController : MonoBehaviour
 
         moveDir = new Vector3(h, 0f, v).normalized;
 
-        if (moveDir.sqrMagnitude > 1) moveDir.Normalize();
+        if (moveDir.sqrMagnitude > 1)
+        {
+            moveDir.Normalize();
+            audioManager.Play("Running");
+        }
+        else audioManager.Stop("Running");
 
-        if (Input.GetButtonDown("Jump")) isJumpHeld = true;
+        if (Input.GetButtonDown("Jump"))
+        {
+            isJumpHeld = true;
+        }
         else isJumpHeld = false;
-        if (Input.GetButtonDown("Fire1") && !spinning) spinning = true;
+        if (Input.GetButtonDown("Fire1") && !spinning)
+        {
+            spinning = true;
+            audioManager.Play("Spin");
+        }
 
         verticalVelocity += jumpImpulse * 2 * Time.deltaTime;
         if (spinning)
@@ -199,6 +212,7 @@ public class HeroController : MonoBehaviour
             {
                 verticalVelocity = -jumpImpulse * (momentum + 1);
                 timeLeftGrounded = 0; // not on ground (for animation's sake)
+                audioManager.Play("Jump");
             }
         }
         if (transform.position.y <= 0)
