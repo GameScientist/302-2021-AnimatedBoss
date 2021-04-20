@@ -33,8 +33,28 @@ public class CameraOrbit : MonoBehaviour
 
     private void RotateCamera()
     {
+        if (Input.GetAxisRaw("Mouse X") != 0 || Input.GetAxisRaw("Mouse Y") != 0) MouseLook();
+        else if (Input.GetAxisRaw("AimHorizontal") != 0 || Input.GetAxisRaw("AimVertical") != 0) StickLook();
+    }
+
+    private void MouseLook()
+    {
         float mx = Input.GetAxisRaw("Mouse X");
         float my = Input.GetAxisRaw("Mouse Y");
+
+        yaw += mx * cameraSensitivityX;
+        pitch -= my * cameraSensitivityY;
+
+        if (zoomedOut) pitch = Mathf.Clamp(pitch, -15, 90);
+        else pitch = Mathf.Clamp(pitch, -5, 90);
+
+        transform.rotation = AnimMath.Slide(transform.rotation, Quaternion.Euler(pitch, yaw, 0), .001f);
+    }
+
+    private void StickLook()
+    {
+        float mx = Input.GetAxisRaw("AimHorizontal");
+        float my = Input.GetAxisRaw("AimVertical");
 
         yaw += mx * cameraSensitivityX;
         pitch -= my * cameraSensitivityY;

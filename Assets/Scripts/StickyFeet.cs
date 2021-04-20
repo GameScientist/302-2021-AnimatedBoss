@@ -113,7 +113,6 @@ public class StickyFeet : MonoBehaviour
             // setup end of animation:
             plantedPosition = hit.point;
             plantedRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-            print(hit.normal + " - " + transform.up);
 
             // begin animation:
             timeCurrent = 0;

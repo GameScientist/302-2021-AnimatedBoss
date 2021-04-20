@@ -130,7 +130,7 @@ public class HeroController : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        moveDir = new Vector3(h, 0f, v).normalized;
+        moveDir = new Vector3(h, 0f, v);//.normalized;
 
         if (moveDir.sqrMagnitude > 1)
         {
