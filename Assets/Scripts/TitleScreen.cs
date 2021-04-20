@@ -9,6 +9,7 @@ public class TitleScreen : MonoBehaviour
     private Canvas canvas;
     private bool gameStarted = false;
     private float cutscene = 2f;
+    public AudioSource bubbles;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class TitleScreen : MonoBehaviour
             canvas.enabled = false;
             boss.position = AnimMath.Slide(boss.position, new Vector3(-150, -15, 0), 0.25f);
             if (cutscene <= 0) SceneManager.LoadScene("AnimatedBoss");
+            bubbles.Play();
         }
     }
 }

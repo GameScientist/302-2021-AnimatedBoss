@@ -176,7 +176,7 @@ public class BossController : MonoBehaviour
     private void StateManagement()
     {
         if (health.health <= 0) SwitchState(new States.Dead());
-        else if (state == null) SwitchState(new States.Idle());
+        else if (state == null) SwitchState(new States.Walk());
 
         if (state != null)
         {
