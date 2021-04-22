@@ -32,7 +32,6 @@ public class HandAnimator : MonoBehaviour
     void Start()
     {
         hero = GetComponentInParent<HeroController>();
-        print(hero);
         startingPos = transform.localPosition;
         startingRot = transform.localRotation;
     }

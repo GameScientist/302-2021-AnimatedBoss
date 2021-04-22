@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
@@ -122,6 +123,9 @@ public class BossController : MonoBehaviour
             {
                 boss.bossState = BossStates.Dead;
                 boss.audioManager.Play("Monster Defeat");
+                boss.tip.gameObject.SetActive(true);
+                Text text = boss.tip.GetComponentInChildren<Text>();
+                text.text = "You won! You are now a land dweller!";
                 base.OnStart(boss);
             }
             public override void OnEnd()
@@ -137,6 +141,7 @@ public class BossController : MonoBehaviour
     public List<StickyFeet> feet = new List<StickyFeet>();
     private Health health;
     public AudioManager audioManager;
+    public Transform tip;
     public BossStates bossState { get; private set; }
     // Start is called before the first frame update
     void Start()
@@ -149,6 +154,7 @@ public class BossController : MonoBehaviour
     void Update()
     {
         StateManagement();
+        if (health.health == 3) tip.gameObject.SetActive(false);
         int feetStepping = 0;
         int feetMoved = 0;
         foreach (StickyFeet foot in feet)
@@ -170,8 +176,6 @@ public class BossController : MonoBehaviour
                 if (foot.TryToStep()) feetStepping++;
             }
         }
-
-        agent.speed = 20 - health.health * 4;
     }
     private void StateManagement()
     {

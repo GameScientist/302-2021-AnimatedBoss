@@ -37,6 +37,7 @@ public class StickyFeet : MonoBehaviour
         //DoRayCast();
         previousPlantedPosition = transform.position;
         plantedPosition = stepPosition.position;
+        plantedRotation = transform.rotation;
         print(transform.rotation);
     }
 

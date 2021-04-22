@@ -9,6 +9,7 @@ TagManager:
   - Eye
   - Boss
   - Foot
+  - Water
   layers:
   - Default
   - TransparentFX

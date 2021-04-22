@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroController : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class HeroController : MonoBehaviour
     private bool spinning = false;
     public float spinTime = 0;
 
-    private float verticalVelocity = 0;
+    public float verticalVelocity = 0;
 
     public Vector3 walkScale = Vector3.one;
 
@@ -42,17 +43,18 @@ public class HeroController : MonoBehaviour
 
     private float maxSpeed = 20;
     private float startStepSpeed;
-    private float momentum = 0;
+    public float momentum = 0;
     private bool running;
     private Health health;
     public Area currentArea = null;
     public AudioManager audioManager;
+    public Transform tip;
 
     public bool isGrounded
     {
         get
         { // return true is pawn is on ground OR "coyote time"
-            return pawn.isGrounded || timeLeftGrounded > 0;
+            return pawn.isGrounded;// || timeLeftGrounded > 0;
         }
     }
     public States state { get; private set; }
@@ -90,34 +92,15 @@ public class HeroController : MonoBehaviour
                     }
                     limb.transform.parent = null;
                 }
+                tip.gameObject.SetActive(true);
+                Text text = tip.GetComponentInChildren<Text>();
+                text.text = "Game over! Please restart.";
                 gibbed = true;
             }
         }
         else
         {
             MovePlayer();
-            if (isGrounded)
-            {
-                if (Input.GetButton("Fire3") && moveDir.magnitude > .1f)
-                {
-                    running = true;
-                    momentum = Mathf.Clamp01(momentum);
-                    if (momentum >= 1)
-                    {
-                        stepSpeed = startStepSpeed * 2;
-                    }
-                    else
-                    {
-                        stepSpeed = startStepSpeed * 1.5f;
-                    }
-                }
-                else
-                {
-                    momentum = Mathf.Clamp(momentum, 0, 0.5f);
-                    stepSpeed = startStepSpeed;
-                    running = false;
-                }
-            }
             momentum = Mathf.Clamp(momentum, 0f, 1f);
             if (momentum >= 1) audioManager.Play("Max Speed");
             else audioManager.Stop("Max Speed");
@@ -135,7 +118,7 @@ public class HeroController : MonoBehaviour
         if (moveDir.sqrMagnitude > 1)
         {
             moveDir.Normalize();
-            audioManager.Play("Running");
+            //audioManager.Play("Running");
         }
         else audioManager.Stop("Running");
 
@@ -147,10 +130,23 @@ public class HeroController : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && !spinning)
         {
             spinning = true;
-            audioManager.Play("Spin");
+            //audioManager.Play("Spin");
         }
 
-        verticalVelocity += jumpImpulse * 2 * Time.deltaTime;
+        verticalVelocity += 20 * Time.deltaTime;
+        if (isGrounded)
+        {
+            verticalVelocity = 0.1f; // on ground, zero-out gravity below.
+            if (pawn.isGrounded) timeLeftGrounded = 0.16f;
+            else timeLeftGrounded -= Time.deltaTime;
+
+            if (isJumpHeld)
+            {
+                verticalVelocity = -jumpImpulse * (momentum + 1);
+                timeLeftGrounded = 0; // not on ground (for animation's sake)
+                audioManager.Play("Jump");
+            }
+        }
         if (spinning)
         {
             if (spinTime >= 1)
@@ -185,11 +181,9 @@ public class HeroController : MonoBehaviour
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
 
-            moveDir = transform.rotation * Vector3.forward;
+            //moveDir = transform.rotation * Vector3.forward;
 
             momentum += Time.deltaTime / 2;
-
-            moveDelta = moveDir * moveSpeed + verticalVelocity * Vector3.down;
 
             if (momentum >= 1) foreach (TrailRenderer trail in legTrails) trail.emitting = true;
             else foreach (TrailRenderer trail in legTrails) trail.emitting = false;
@@ -197,29 +191,48 @@ public class HeroController : MonoBehaviour
         else
         {
             momentum -= Time.deltaTime / 2;
-            moveDelta = transform.forward * moveSpeed + verticalVelocity * Vector3.down;
-
+            if (momentum < 0) momentum = 0;
+        }
+        moveDelta = transform.forward * moveSpeed + verticalVelocity * Vector3.down;
+        if (isGrounded)
+        {
+            if (Input.GetButton("Fire3") && moveDir.magnitude > .1f)
+            {
+                running = true;
+                momentum = Mathf.Clamp01(momentum);
+                if (momentum >= 1)
+                {
+                    stepSpeed = startStepSpeed * 2;
+                }
+                else
+                {
+                    stepSpeed = startStepSpeed * 1.5f;
+                }
+            }
+            else
+            {
+                momentum = Mathf.Clamp(momentum, 0, 0.5f);
+                stepSpeed = startStepSpeed;
+                running = false;
+            }
         }
         moveSpeed = Mathf.Lerp(0, maxSpeed, momentum);
         pawn.Move(moveDelta * Time.deltaTime);
-        if (isGrounded)
-        {
-            verticalVelocity = 0; // on ground, zero-out gravity below.
-            if (pawn.isGrounded) timeLeftGrounded = 0.16f;
-            else timeLeftGrounded -= Time.deltaTime;
-
-            if (isJumpHeld)
-            {
-                verticalVelocity = -jumpImpulse * (momentum + 1);
-                timeLeftGrounded = 0; // not on ground (for animation's sake)
-                audioManager.Play("Jump");
-            }
-        }
         if (transform.position.y <= 0)
         {
-            transform.position = new Vector3(0, 8.5f, 0);
+            Respawn();
         }
     }
+
+    public void Respawn()
+    {
+        momentum = 0;
+        verticalVelocity = 0;
+        pawn.enabled = false;
+        transform.position = new Vector3(0, 8.5f, 0);
+        pawn.enabled = true;
+    }
+
     private States SetState()
     {
         if (health.health <= 0) return States.Dead;
