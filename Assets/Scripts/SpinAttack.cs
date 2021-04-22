@@ -12,8 +12,6 @@ public class SpinAttack : MonoBehaviour
         {
             health.Damage();
             HeroController hero = GetComponentInParent<HeroController>();
-            print(hero);
-            hero.Respawn();
             Area area = hero.currentArea.GetComponent<Area>();
             if(area != null)area.sinking = true;
             hero.currentArea = null;

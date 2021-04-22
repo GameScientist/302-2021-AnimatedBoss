@@ -247,6 +247,6 @@ public class HeroController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("Damage")) health.Damage();
+        if (hit.gameObject.CompareTag("Damage") || hit.gameObject.CompareTag("Eye")) health.Damage();
     }
 }

@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    public float postHitTimeLimit;
     /// <summary>
     /// How much time is left until post hit invulnerability has ended.
     /// </summary>
-    private float postHitTime = 7.5f;
+    private float postHitTimeCurrent;
     /// <summary>
     /// When the character become invulnerable and its sprite starts blinking repeatedly.
     /// </summary>
@@ -38,7 +39,7 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //blood = GetComponentInChildren<ParticleSystem>();
+        postHitTimeCurrent = postHitTimeLimit;
     }
 
     /// <summary>
@@ -64,11 +65,11 @@ public class Health : MonoBehaviour
     /// </summary>
     private void PostHitInvulnerability()
     {
-        postHitTime -= Time.deltaTime;
+        postHitTimeCurrent -= Time.deltaTime;
         panel.color = Color.Lerp(new Color(1, 1, 1, 0.2f), Color.red, Mathf.Sin(Time.time * 60));
-        if (postHitTime <= 0)
+        if (postHitTimeCurrent <= 0)
         {
-            postHitTime = 7.5f;
+            postHitTimeCurrent = postHitTimeLimit;
             postHit = false;
             panel.color = new Color(1, 1, 1, 0.2f);
         }
@@ -86,7 +87,7 @@ public class Health : MonoBehaviour
             if (player != null)
             {
                 audioManager.Play("Player Damage");
-                cam.shakeIntensity = 7.5f;
+                cam.shakeIntensity = postHitTimeLimit;
             }
         }
     }
