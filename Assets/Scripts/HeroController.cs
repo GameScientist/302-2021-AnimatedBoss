@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HeroController : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class HeroController : MonoBehaviour
     {
         if (state == States.Dead)
         {
-            if (gibbed) return;
+            if (gibbed) if(Input.GetButtonDown("Pause")) SceneManager.LoadScene("AnimatedBoss");
             else
             {
                 foreach (Rigidbody limb in limbs)
@@ -94,7 +95,7 @@ public class HeroController : MonoBehaviour
                 }
                 tip.gameObject.SetActive(true);
                 Text text = tip.GetComponentInChildren<Text>();
-                text.text = "Game over! Please restart.";
+                text.text = "Game over! Press the pause button to restart.";
                 gibbed = true;
             }
         }

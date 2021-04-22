@@ -1960,7 +1960,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: bd2d2025ebd914748b0919e7fd38ad90, type: 3}
-    m_FontSize: 48
+    m_FontSize: 42
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
@@ -2731,6 +2731,7 @@ GameObject:
   - component: {fileID: 1632725708}
   - component: {fileID: 1632725707}
   - component: {fileID: 1632725710}
+  - component: {fileID: 1632725711}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2919,6 +2920,18 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!114 &1632725711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632725706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55f2fac536b41241ad00bfd440b79dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1683426551
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,7 +3900,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 48, y: -54}
-  m_SizeDelta: {x: -96, y: 72}
+  m_SizeDelta: {x: -96, y: 63}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2009611867
 MonoBehaviour:
@@ -3911,7 +3924,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: bd2d2025ebd914748b0919e7fd38ad90, type: 3}
-    m_FontSize: 72
+    m_FontSize: 63
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1

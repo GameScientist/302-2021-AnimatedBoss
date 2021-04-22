@@ -13,7 +13,8 @@ public class SpinAttack : MonoBehaviour
             health.Damage();
             HeroController hero = GetComponentInParent<HeroController>();
             Area area = hero.currentArea.GetComponent<Area>();
-            if(area != null)area.sinking = true;
+            if (area == null) return;
+            else area.sinking = true;
             hero.currentArea = null;
             audioManager.Play("Sinking");
             audioManager.Play("Hit");

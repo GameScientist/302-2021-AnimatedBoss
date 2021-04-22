@@ -125,7 +125,7 @@ public class BossController : MonoBehaviour
                 boss.audioManager.Play("Monster Defeat");
                 boss.tip.gameObject.SetActive(true);
                 Text text = boss.tip.GetComponentInChildren<Text>();
-                text.text = "You won! You are now a land dweller!";
+                text.text = "You won! You are now a land dweller! Press the quit button to quit the game.";
                 base.OnStart(boss);
             }
             public override void OnEnd()

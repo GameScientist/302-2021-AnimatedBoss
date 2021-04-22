@@ -10,8 +10,8 @@ public class CameraOrbit : MonoBehaviour
     private float yaw = 0;
     private float pitch = 0;
 
-    private float cameraSensitivityX = 4; // How quickly the player can move the camera horizontally.
-    private float cameraSensitivityY = 1; // How quickly the player can move the camera vertically.
+    private float cameraSensitivityX = 360; // How quickly the player can move the camera horizontally.
+    private float cameraSensitivityY = 90; // How quickly the player can move the camera vertically.
 
     public bool zoomedOut;
 
@@ -46,16 +46,16 @@ public class CameraOrbit : MonoBehaviour
     {
         float mx = Input.GetAxisRaw("Mouse X");
         float my = Input.GetAxisRaw("Mouse Y");
-        yaw += mx * cameraSensitivityX;
-        pitch -= my * cameraSensitivityY;
+        yaw += mx * cameraSensitivityX * Time.deltaTime;
+        pitch -= my * cameraSensitivityY * Time.deltaTime;
     }
 
     private void StickLook()
     {
         float mx = Input.GetAxisRaw("AimHorizontal");
         float my = Input.GetAxisRaw("AimVertical");
-        yaw += mx * cameraSensitivityX;
-        pitch -= my * cameraSensitivityY;
+        yaw += mx * cameraSensitivityX * Time.deltaTime;
+        pitch -= my * cameraSensitivityY * Time.deltaTime;
     }
 
     private void ZoomCamera()
