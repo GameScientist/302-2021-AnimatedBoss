@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Controls where each hand is pointing to.
+/// </summary>
 public class HandAnimator : MonoBehaviour
 {
     /// <summary>
@@ -15,18 +17,14 @@ public class HandAnimator : MonoBehaviour
     private Quaternion startingRot;
 
     /// <summary>
-    /// An offset value to use for timing of the Sin wave that controls the walk animation.
-    /// 
-    /// A value of Mathf.PI would be half-a-period.
+    /// Determines if this hand has an offset to it.
     /// </summary>
-    public float stepOffset = 0;
+    public bool offset;
 
+    /// <summary>
+    /// The state controller.
+    /// </summary>
     HeroController hero;
-
-    private Vector3 targetPos;
-    private Quaternion targetRot;
-
-    private float easing;
 
     // Start is called before the first frame update
     void Start()
@@ -42,55 +40,50 @@ public class HandAnimator : MonoBehaviour
         switch (hero.state)
         {
             case HeroController.States.Idle:
-                easing = 0.0625f;
-                AnimateIdle();
+                Swing(0, 2f, 0.0625f);
                 break;
             case HeroController.States.Walk:
-                easing = 0.125f;
-                if (stepOffset > 0) stepOffset = 1.57f;
-                AnimateWalk();
+                if (offset) Swing(1.57f, 1f, 0.125f);
+                else Swing(0f, 1f, 0.125f);
                 break;
             case HeroController.States.Jog:
-                easing = 0.25f;
-                if (stepOffset > 0) stepOffset = 3.14f;
-                AnimateWalk();
+                if (offset) Swing(3.14f, 1f, 0.25f);
+                else Swing(0f, 1f, 0.25f);
                 break;
             case HeroController.States.Run:
-                easing = 0.5f;
-                if (stepOffset > 0) stepOffset = 2.355f;
-                AnimateWalk();
+                if (offset) Swing(2.355f, 1f, 0.25f);
+                else Swing(0f, 1f, 0.25f);
                 break;
             case HeroController.States.Jump:
-                easing = 0.03125f;
-                AnimateJump();
+                Stretch(2.5f, 2, 0.03125f);
                 break;
             case HeroController.States.Fall:
-                easing = 0.015625f;
-                AnimateFall();
+                Stretch(2.5f, 2, 0.015625f);
                 break;
             case HeroController.States.Attack:
-                easing = 0.5f;
-                AnimateAttack();
+                Stretch(0.5f, 0, 0.5f);
                 break;
         }
-
-        //transform.position = AnimMath.Slide(transform.position, targetPos, .01f);
-        //transform.rotation = AnimMath.Slide(transform.rotation, targetRot, .01f);
     }
-
-    void AnimateWalk()
+    /// <summary>
+    /// Swings the player's arms to and fro.
+    /// </summary>
+    /// <param name="stepOffset"></param>
+    /// <param name="restraint"></param>
+    /// <param name="easing"></param>
+    private void Swing(float stepOffset, float restraint, float easing)
     {
         Vector3 finalPos = startingPos;
 
-        float time = (Time.time + stepOffset) * hero.stepSpeed;
+        float time = (Time.time + stepOffset) * hero.stepSpeed / restraint;
 
         // lateral movement: (z + x)
         float frontToBack = Mathf.Sin(time);
         //finalPos += hero.moveDir * frontToBack * hero.walkScale.z;
-        finalPos.z = frontToBack * hero.walkScale.z;
+        finalPos.z = frontToBack * hero.walkScale.z / restraint;
 
         // vertical movement: (y)
-        finalPos.y += Mathf.Cos(time) * hero.walkScale.y;
+        if(restraint != 2f)finalPos.y += Mathf.Cos(time) * hero.walkScale.y / restraint;
 
         finalPos.x *= hero.walkScale.x;
 
@@ -105,63 +98,20 @@ public class HandAnimator : MonoBehaviour
 
         transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
 
-        //targetPos = transform.TransformPoint(finalPos);
-
-        //targetRot = transform.parent.rotation * startingRot * Quaternion.Euler(0, 0, anklePitch);
         transform.localRotation = startingRot * Quaternion.Euler(0, 0, anklePitch);
-    }
 
-    void AnimateIdle()
+    }
+    /// <summary>
+    /// Stretches the player's limbs out to simulate jumping.
+    /// </summary>
+    /// <param name="y"></param>
+    /// <param name="z"></param>
+    /// <param name="easing"></param>
+    private void Stretch(float y, float z, float easing)
     {
         Vector3 finalPos = startingPos;
-
-        float time = Time.time * hero.stepSpeed / 2f;
-
-        // lateral movement: (z + x)
-        float frontToBack = Mathf.Sin(time);
-        //finalPos += hero.moveDir * frontToBack * hero.walkScale.z;
-        finalPos.z = frontToBack * hero.walkScale.z / 2f;
-
-        // vertical movement: (y)
-        //finalPos.y += Mathf.Cos(time) * hero.walkScale.y;
-
-        finalPos.x *= hero.walkScale.x;
-
-        bool isOnGround = (finalPos.y < startingPos.y);
-
-        if (isOnGround) finalPos.y = startingPos.y;
-
-        // convert from z(-1 to 1) to p (0 to 1 to 0)
-        float p = 1 - Mathf.Abs(frontToBack);
-
-        float anklePitch = isOnGround ? 0 : -p * 20;
-
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
-
-        //targetPos = transform.TransformPoint(finalPos);
-
-        //targetRot = transform.parent.rotation * startingRot * Quaternion.Euler(0, 0, anklePitch);
-        transform.localRotation = startingRot * Quaternion.Euler(0, 0, anklePitch);
-    }
-    void AnimateJump()
-    {
-        Vector3 finalPos = startingPos;
-        finalPos.y = 2.5f;
-        finalPos.z = 2;
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
-    }
-    void AnimateFall()
-    {
-        Vector3 finalPos = startingPos;
-        finalPos.y = 2.5f;
-        finalPos.z = -2;
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
-    }
-    void AnimateAttack()
-    {
-        Vector3 finalPos = startingPos;
-        finalPos.y = 0.5f;
-        finalPos.z = 0;
+        finalPos.y = y;
+        finalPos.z = z;
         transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
     }
 }

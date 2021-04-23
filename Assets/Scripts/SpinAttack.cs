@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// A trigger that spawns around the player to detect if the boss's eye was hit or not. Also plays several effects when the boss is hit.
+/// </summary>
 public class SpinAttack : MonoBehaviour
 {
+    /// <summary>
+    /// Plays the sound effects for when the attack collides.
+    /// </summary>
     public AudioManager audioManager;
     private void OnTriggerEnter(Collider other)
     {

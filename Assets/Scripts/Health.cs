@@ -22,16 +22,22 @@ public class Health : MonoBehaviour
     /// How many hits this character can take before dying.
     /// </summary>
     public int health = 4;
-
+    /// <summary>
+    /// UI objects the represents each character's health.
+    /// </summary>
     public RawImage[] eyes = new RawImage[4];
-
+    /// <summary>
+    /// A UI object that represents damaged health.
+    /// </summary>
     public Texture closed;
-
+    /// <summary>
+    /// The panel that contains a character's health.
+    /// </summary>
     public RawImage panel;
-
+    /// <summary>
+    /// The sound effects that are played upon taking damage.
+    /// </summary>
     public AudioManager audioManager;
-
-    public CameraOrbit cam;
 
     /// <summary>
     /// Gets the particle system component and the sprite component while also setting the 
@@ -87,7 +93,6 @@ public class Health : MonoBehaviour
             if (player != null)
             {
                 audioManager.Play("Player Damage");
-                cam.shakeIntensity = postHitTimeLimit;
             }
         }
     }

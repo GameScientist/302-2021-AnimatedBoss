@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Sinks a raft downward when a signal is recieved.
+/// </summary>
 public class Area : MonoBehaviour
 {
+    /// <summary>
+    /// If the raft is currently sinking.
+    /// </summary>
     public bool sinking;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

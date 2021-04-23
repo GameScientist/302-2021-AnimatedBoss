@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-
+/// <summary>
+/// Controls the boss's behavior.
+/// </summary>
 public class BossController : MonoBehaviour
 {
+    /// <summary>
+    /// Helps other components identify the current state of the boss.
+    /// </summary>
     public enum BossStates
     {
         Idle,
@@ -13,10 +18,13 @@ public class BossController : MonoBehaviour
         Attack,
         Dead
     }
+    /// <summary>
+    /// The many different types of behavior the boss has.
+    /// </summary>
     public static class States
     {
         /// <summary>
-        /// Sets the template for how switching between states is handled.
+        /// One of the behaviors of the boss.
         /// </summary>
         public class State
         {
@@ -48,8 +56,14 @@ public class BossController : MonoBehaviour
 
             }
         }
+        /// <summary>
+        /// The boss has lost track of the player and is standing around trying to find it!
+        /// </summary>
         public class Idle : State
         {
+            /// <summary>
+            /// The amount of time this state has been active.
+            /// </summary>
             public float stateTime = 0;
             public override State Update()
             {
@@ -67,6 +81,9 @@ public class BossController : MonoBehaviour
                 base.OnEnd();
             }
         }
+        /// <summary>
+        /// The boss walks towards the player.
+        /// </summary>
         public class Walk : State
         {
             public override State Update()
@@ -86,6 +103,9 @@ public class BossController : MonoBehaviour
                 base.OnEnd();
             }
         }
+        /// <summary>
+        /// The boss stomps on the player.
+        /// </summary>
         public class Attack : State
         {
             float stateTime = 0;
@@ -112,6 +132,9 @@ public class BossController : MonoBehaviour
                 base.OnEnd();
             }
         }
+        /// <summary>
+        /// The boss gives up and retreats back into the sea.
+        /// </summary>
         public class Dead : State
         {
             public override State Update()
@@ -134,13 +157,37 @@ public class BossController : MonoBehaviour
             }
         }
     }
-    public Transform hero;
-    public Transform exit;
-    private NavMeshAgent agent;
-    public States.State state;
-    public List<StickyFeet> feet = new List<StickyFeet>();
+    /// <summary>
+    /// Tracks how much health the boss has left.
+    /// </summary>
     private Health health;
+    /// <summary>
+    /// Sets the boss's current destination.
+    /// </summary>
+    private NavMeshAgent agent;
+    /// <summary>
+    /// The player the boss is trying to attack.
+    /// </summary>
+    public Transform hero;
+    /// <summary>
+    /// The area inside of the sea the boss travels to on defeat.
+    /// </summary>
+    public Transform exit;
+    /// <summary>
+    /// The boss's current state.
+    /// </summary>
+    public States.State state;
+    /// <summary>
+    /// The feet being controlled by the boss.
+    /// </summary>
+    public List<StickyFeet> feet = new List<StickyFeet>();
+    /// <summary>
+    /// Controls all of the sounds the boss makes.
+    /// </summary>
     public AudioManager audioManager;
+    /// <summary>
+    /// Removes this once the player gets its firt hit in.
+    /// </summary>
     public Transform tip;
     public BossStates bossState { get; private set; }
     // Start is called before the first frame update
@@ -153,30 +200,13 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StateManagement();
         if (health.health == 3) tip.gameObject.SetActive(false);
-        int feetStepping = 0;
-        int feetMoved = 0;
-        foreach (StickyFeet foot in feet)
-        {
-            if (foot.isAnimating) feetStepping++;
-            if (foot.footHasMoved) feetMoved++;
-        }
-        if (feetMoved >= 4)
-        {
-            foreach (StickyFeet foot in feet)
-            {
-                foot.footHasMoved = false;
-            }
-        }
-        foreach (StickyFeet foot in feet)
-        {
-            if (feetStepping < 2)
-            {
-                if (foot.TryToStep()) feetStepping++;
-            }
-        }
+        StateManagement();
+        MoveFeet(0, 0);
     }
+    /// <summary>
+    /// Determines if the SwitchState method needs to be executed.
+    /// </summary>
     private void StateManagement()
     {
         if (health.health <= 0) SwitchState(new States.Dead());
@@ -203,5 +233,32 @@ public class BossController : MonoBehaviour
         state = newState;
 
         state.OnStart(this);
+    }
+    /// <summary>
+    /// Sends signals to each foot animator if a foot needs to be moved.
+    /// </summary>
+    /// <param name="feetStepping"></param>
+    /// <param name="feetMoved"></param>
+    private void MoveFeet(int feetStepping, int feetMoved)
+    {
+        foreach (StickyFeet foot in feet)
+        {
+            if (foot.IsAnimating) feetStepping++;
+            if (foot.footHasMoved) feetMoved++;
+        }
+        if (feetMoved >= 4)
+        {
+            foreach (StickyFeet foot in feet)
+            {
+                foot.footHasMoved = false;
+            }
+        }
+        foreach (StickyFeet foot in feet)
+        {
+            if (feetStepping < 2)
+            {
+                if (foot.TryToStep()) feetStepping++;
+            }
+        }
     }
 }

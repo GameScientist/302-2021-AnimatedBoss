@@ -6,19 +6,19 @@ using UnityEngine.Animations;
 public class TorsoAnimator : MonoBehaviour
 {
     /// <summary>
+    /// The player character.
+    /// </summary>
+    HeroController hero;
+
+    /// <summary>
     /// The local-space starting rotation
     /// </summary>
     private Quaternion startingAngle;
 
-    HeroController hero;
-
-    private float spinAngle = 360;
-
-    private float deathAngle = -90;
-
+    /// <summary>
+    /// The bone controlling the torso.
+    /// </summary>
     public RotationConstraint bone;
-
-    private float deathTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,15 +29,18 @@ public class TorsoAnimator : MonoBehaviour
 
     private void Update()
     {
-        if (hero.state == HeroController.States.Attack)
-        {
-            bone.weight = 1;
-            transform.rotation = Quaternion.AngleAxis(Mathf.Lerp(startingAngle.y, spinAngle, hero.spinTime / 0.2f), transform.up);
-        }
-        else
-        {
-            bone.weight = 0;
-            transform.rotation = Quaternion.AngleAxis(startingAngle.x, transform.up);
-        }
+        if (hero.state == HeroController.States.Attack) SetRotation(1, Mathf.Lerp(startingAngle.y, 360, hero.spinTime / 0.2f)); // The character is turned around quickly when attacking.
+        else SetRotation(0, startingAngle.x); // The character is kept in place.
+    }
+
+    /// <summary>
+    /// Sets the rotation of the player character.
+    /// </summary>
+    /// <param name="boneWeight"></param>
+    /// <param name="angle"></param>
+    private void SetRotation(float boneWeight, float angle)
+    {
+        bone.weight = boneWeight;
+        transform.rotation = Quaternion.AngleAxis(angle, transform.up);
     }
 }

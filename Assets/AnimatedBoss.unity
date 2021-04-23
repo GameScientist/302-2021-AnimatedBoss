@@ -5775,7 +5775,6 @@ MonoBehaviour:
   closed: {fileID: 2800000, guid: b6359c289645a934d93c1f13f1c98dc7, type: 3}
   panel: {fileID: 2066964343}
   audioManager: {fileID: 1373337165}
-  cam: {fileID: 786296005}
 --- !u!1 &196293329
 GameObject:
   m_ObjectHideFlags: 0
@@ -6618,7 +6617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4033b88b4f31714d8504bd24d2a74c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepOffset: 1.57
+  offset: 0
 --- !u!1 &419500302
 GameObject:
   m_ObjectHideFlags: 0
@@ -17230,9 +17229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfabfff8912344e42940eeea31a2b97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hero: {fileID: 188430393}
   zoomedOut: 1
   shakeIntensity: 0
+  target: {fileID: 188430393}
 --- !u!1 &790807877
 GameObject:
   m_ObjectHideFlags: 0
@@ -17846,7 +17845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b0ae04a89e0f4409bb81cc614ab7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepOffset: 0
+  offset: 0
 --- !u!1 &915695374
 GameObject:
   m_ObjectHideFlags: 0
@@ -23390,7 +23389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b0ae04a89e0f4409bb81cc614ab7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepOffset: 1.57
+  offset: 1
 --- !u!1 &1200787391
 GameObject:
   m_ObjectHideFlags: 0
@@ -47803,7 +47802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4033b88b4f31714d8504bd24d2a74c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepOffset: 0
+  offset: 0
 --- !u!1 &1372390341
 GameObject:
   m_ObjectHideFlags: 0

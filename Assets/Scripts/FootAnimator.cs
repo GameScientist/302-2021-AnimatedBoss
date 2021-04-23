@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Controls where each foot is pointing towards.
+/// </summary>
 public class FootAnimator : MonoBehaviour
 {
+    /// <summary>
+    /// The state controller.
+    /// </summary>
+    HeroController hero;
+
     /// <summary>
     /// The local-space starting position of this object.
     /// </summary>
@@ -15,18 +22,9 @@ public class FootAnimator : MonoBehaviour
     private Quaternion startingRot;
 
     /// <summary>
-    /// An offset value to use for timing of the Sin wave that controls the walk animation.
-    /// 
-    /// A value of Mathf.PI would be half-a-period.
+    /// Determines if this foot has an offset to it.
     /// </summary>
-    public float stepOffset = 0;
-
-    HeroController hero;
-
-    private Vector3 targetPos;
-    private Quaternion targetRot;
-
-    private float easing;
+    public bool offset;
 
     // Start is called before the first frame update
     void Start()
@@ -42,39 +40,30 @@ public class FootAnimator : MonoBehaviour
         switch (hero.state)
         {
             case HeroController.States.Idle:
-                easing = 0.0625f;
                 AnimateIdle();
                 break;
             case HeroController.States.Walk:
-                easing = 0.125f;
-                if (stepOffset > 0) stepOffset = 1.57f;
-                AnimateWalk();
+                if (offset) AnimateWalk(1.57f, 0.125f);
+                else AnimateWalk(0f, 0.125f);
                 break;
             case HeroController.States.Jog:
-                easing = 0.25f;
-                if (stepOffset > 0) stepOffset = 3.14f;
-                AnimateWalk();
+                if (offset) AnimateWalk(3.14f, 0.25f);
+                else AnimateWalk(0f, 0.25f);
                 break;
             case HeroController.States.Run:
-                easing = 0.5f;
-                if (stepOffset > 0) stepOffset = 2.355f;
-                AnimateWalk();
+                if (offset) AnimateWalk(2.355f, 0.25f);
+                else AnimateWalk(0f, 0.25f);
                 break;
             case HeroController.States.Jump:
-                easing = 0.03125f;
-                AnimateJump();
+                Stretch(-2, 0.03125f);
                 break;
             case HeroController.States.Fall:
-                easing = 0.015625f;
-                AnimateFall();
+                Stretch(2, 0.015625f);
                 break;
         }
-
-        //transform.position = AnimMath.Slide(transform.position, targetPos, .01f);
-        //transform.rotation = AnimMath.Slide(transform.rotation, targetRot, .01f);
     }
 
-    void AnimateWalk()
+    void AnimateWalk(float stepOffset, float easing)
     {
         Vector3 finalPos = startingPos;
 
@@ -82,7 +71,6 @@ public class FootAnimator : MonoBehaviour
 
         // lateral movement: (z + x)
         float frontToBack = Mathf.Sin(time);
-        //finalPos += hero.moveDir * frontToBack * hero.walkScale.z;
         finalPos.z = frontToBack*hero.walkScale.z;
 
         // vertical movement: (y)
@@ -101,24 +89,12 @@ public class FootAnimator : MonoBehaviour
 
         transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
 
-        //targetPos = transform.TransformPoint(finalPos);
-
-        //targetRot = transform.parent.rotation * startingRot * Quaternion.Euler(0, 0, anklePitch);
         transform.localRotation = startingRot * Quaternion.Euler(0, 0, anklePitch);
     }
 
     void AnimateIdle()
     {
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, startingPos, easing);
-        //transform.localRotation = startingRot;
-
-        //targetPos = transform.TransformPoint(startingPos);
-        //targetRot = transform.parent.rotation * startingRot;
-
-        FindGround();
-    }
-    void FindGround()
-    {
+        transform.localPosition = AnimMath.Lerp(transform.localPosition, startingPos, 0.0625f);
         Ray ray = new Ray(transform.position + new Vector3(0, .5f, 0), Vector3.down * 2);
 
         Debug.DrawRay(ray.origin, ray.direction);
@@ -129,21 +105,11 @@ public class FootAnimator : MonoBehaviour
 
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
-        else
-        {
-
-        }
     }
-    void AnimateJump()
+    private void Stretch(float z, float easing)
     {
         Vector3 finalPos = startingPos;
-        finalPos.z = -2;
-        transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
-    }
-    void AnimateFall()
-    {
-        Vector3 finalPos = startingPos;
-        finalPos.z = 2;
+        finalPos.z = z;
         transform.localPosition = AnimMath.Lerp(transform.localPosition, finalPos, easing);
     }
 }
