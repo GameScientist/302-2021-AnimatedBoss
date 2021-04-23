@@ -29,7 +29,7 @@ public class TorsoAnimator : MonoBehaviour
 
     private void Update()
     {
-        if (hero.state == HeroController.States.Attack) SetRotation(1, Mathf.Lerp(startingAngle.y, 360, hero.spinTime / 0.2f)); // The character is turned around quickly when attacking.
+        if (hero.State == HeroController.States.Attack) SetRotation(1, Mathf.Lerp(startingAngle.y, 360, hero.spinTime / 0.2f)); // The character is turned around quickly when attacking.
         else SetRotation(0, startingAngle.x); // The character is kept in place.
     }
 

@@ -37,7 +37,7 @@ public class FootAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (hero.state)
+        switch (hero.State)
         {
             case HeroController.States.Idle:
                 AnimateIdle();

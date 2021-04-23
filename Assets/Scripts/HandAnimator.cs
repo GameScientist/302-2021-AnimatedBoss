@@ -37,7 +37,7 @@ public class HandAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (hero.state)
+        switch (hero.State)
         {
             case HeroController.States.Idle:
                 Swing(0, 2f, 0.0625f);
@@ -58,7 +58,7 @@ public class HandAnimator : MonoBehaviour
                 Stretch(2.5f, 2, 0.03125f);
                 break;
             case HeroController.States.Fall:
-                Stretch(2.5f, 2, 0.015625f);
+                Stretch(2.5f, -2, 0.015625f);
                 break;
             case HeroController.States.Attack:
                 Stretch(0.5f, 0, 0.5f);
