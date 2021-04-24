@@ -124,10 +124,10 @@ public class BossController : MonoBehaviour
             public override void OnEnd()
             {
                 boss.audioManager.Play("Stomp");
-                if(Vector3.Distance(boss.transform.position, boss.hero.position) <= 50)
+                foreach(Chips chip in boss.chips)
                 {
-                    Health health = boss.hero.GetComponent<Health>();
-                    health.Damage();
+                    ParticleSystem particles = chip.GetComponent<ParticleSystem>();
+                    particles.Play();
                 }
                 base.OnEnd();
             }
@@ -165,6 +165,10 @@ public class BossController : MonoBehaviour
     /// Sets the boss's current destination.
     /// </summary>
     private NavMeshAgent agent;
+    /// <summary>
+    /// The particle effects that play when the boss stomps.
+    /// </summary>
+    public List<Chips> chips = new List<Chips>();
     /// <summary>
     /// The player the boss is trying to attack.
     /// </summary>
