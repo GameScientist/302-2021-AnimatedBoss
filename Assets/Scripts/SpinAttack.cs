@@ -10,6 +10,10 @@ public class SpinAttack : MonoBehaviour
     /// Plays the sound effects for when the attack collides.
     /// </summary>
     public AudioManager audioManager;
+    /// <summary>
+    /// Plays when the boss has been hit.
+    /// </summary>
+    public ParticleSystem tears;
     private void OnTriggerEnter(Collider other)
     {
         Health health = other.GetComponentInParent<Health>();
@@ -21,9 +25,7 @@ public class SpinAttack : MonoBehaviour
             if (area == null) return;
             else area.sinking = true;
             hero.currentArea = null;
-            audioManager.Play("Sinking");
-            audioManager.Play("Hit");
-            audioManager.Play("Boss Damage");
+            tears.Play();
         }
     }
 }

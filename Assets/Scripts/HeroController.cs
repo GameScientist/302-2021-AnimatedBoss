@@ -101,6 +101,10 @@ public class HeroController : MonoBehaviour
     /// </summary>
     public TrailRenderer[] legTrails;
     /// <summary>
+    /// Is instantiated when the player hits the water.
+    /// </summary>
+    public Transform splash;
+    /// <summary>
     /// Plays a message when the player recieves a game over.
     /// </summary>
     public Transform tip;
@@ -156,7 +160,7 @@ public class HeroController : MonoBehaviour
     {
         if (gameOver)
         {
-            if (Input.GetButtonDown("Pause")) SceneManager.LoadScene("AnimatedBoss");
+            if (Input.GetButtonDown("Fire1")) SceneManager.LoadScene("AnimatedBoss");
         }
         else GameOver();
     }
@@ -197,7 +201,7 @@ public class HeroController : MonoBehaviour
     {
         tip.gameObject.SetActive(true);
         Text text = tip.GetComponentInChildren<Text>();
-        text.text = "Game over! Press the pause button to restart.";
+        text.text = "Game over! Press the attack button to restart.";
     }
 
     /// <summary>
@@ -215,6 +219,7 @@ public class HeroController : MonoBehaviour
     /// </summary>
     public void Respawn()
     {
+        Instantiate(splash, transform.position, transform.rotation);
         momentum = 0;
         gravity = 0;
         pawn.enabled = false;

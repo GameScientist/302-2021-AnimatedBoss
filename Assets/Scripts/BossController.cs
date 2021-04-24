@@ -118,12 +118,10 @@ public class BossController : MonoBehaviour
             public override void OnStart(BossController boss)
             {
                 boss.bossState = BossStates.Attack;
-                boss.audioManager.Play("Roar");
                 base.OnStart(boss);
             }
             public override void OnEnd()
             {
-                boss.audioManager.Play("Stomp");
                 foreach(Chips chip in boss.chips)
                 {
                     ParticleSystem particles = chip.GetComponent<ParticleSystem>();
@@ -145,7 +143,6 @@ public class BossController : MonoBehaviour
             public override void OnStart(BossController boss)
             {
                 boss.bossState = BossStates.Dead;
-                boss.audioManager.Play("Monster Defeat");
                 boss.tip.gameObject.SetActive(true);
                 Text text = boss.tip.GetComponentInChildren<Text>();
                 text.text = "You won! You are now a land dweller! Press the quit button to quit the game.";

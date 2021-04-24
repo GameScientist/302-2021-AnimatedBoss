@@ -11,11 +11,24 @@ public class Area : MonoBehaviour
     /// </summary>
     public bool sinking;
 
+    /// <summary>
+    /// All of the particle effects that play while the raft is sinking.
+    /// </summary>
+    public List<ParticleSystem> bubbles = new List<ParticleSystem>();
+
     // Update is called once per frame
     void Update()
     {
-        if (sinking) transform.position -= transform.up * 7.5f * Time.deltaTime;
-        if (transform.position.y <= -2500) Destroy(gameObject);
+        if (sinking && transform.position.y > 0) Sink();
+    }
+
+    private void Sink()
+    {
+        foreach (ParticleSystem bubble in bubbles)
+        {
+            if (!bubble.isPlaying) bubble.Play();
+        }
+        transform.position -= transform.up * 7.5f * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -90,10 +90,6 @@ public class Health : MonoBehaviour
             health--;
             postHit = true;
             HeroController player = GetComponent<HeroController>();
-            if (player != null)
-            {
-                audioManager.Play("Player Damage");
-            }
         }
     }
 }
